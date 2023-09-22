@@ -23,7 +23,7 @@ void	first_draft(t_data *data)
 				obstacle=1;
 				p.distance_to_wall = 16;
 			}
-			else if ((data->map[testy][testx]) == '1')
+			else if ((data->maptmp[testy][testx]) == '1')
 				obstacle = 1;
 		}
 			int ceiling = (float)(1000 / 2.0) - 1000 / ((float)p.distance_to_wall);
