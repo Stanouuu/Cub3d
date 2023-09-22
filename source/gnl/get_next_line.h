@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_basics.h                                       :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/04 16:21:05 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/09/12 19:31:52 by stan             ###   ########.fr       */
+/*   Created: 2022/05/27 11:56:54 by sbarrage          #+#    #+#             */
+/*   Updated: 2023/09/13 01:08:50 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-#ifndef MLX_BASICS
-# define MLX_BASICS
+# include <stdlib.h>
+# include <unistd.h>
 
-#include "cube.h"
-
-/* exit_mlx */
-void exit_mlx(t_data *data);
-
-/* hook_mlx */
-int	handle_input(int keysym, t_data *data);
-
-/* init_mlx */
-int init_mlx(t_data *data);
+char	*get_next_line(int fd);
+int		ft_strlen_gnl(char *str);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+int		ft_test_line(char *str);
+char	*ft_copy_buf(char *buf);
+char	*ft_sep_line(char *str);
+char	*ft_nes(char *str);
 
 #endif

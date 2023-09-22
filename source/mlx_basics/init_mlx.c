@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:15:29 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/09/06 15:33:20 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:55:14 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@ void	init_img(t_data *data)
 	data->img = i;
 }
 
+// void init_player(t_data *data)
+// {
+// 	t_player p;
+
+// 	p.fov = 3.14 / 3;
+// 	p.ray_angle = (p.a - p.fov / 2.0f) + (p.x / 1000) * p.fov;
+// 	p.distance_to_wall = 0;
+// 	data->img = i;
+// }
+
 int init_mlx(t_data *data)
 {
 	data->mlx_ptr = mlx_init();
@@ -33,10 +43,14 @@ int init_mlx(t_data *data)
 		return (2);
 	}
 	init_img(data);
+	data->map = ft_split("1111111111111111 1000000000000001 1000000000000001 1000000001111111 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1111111111111111 ", ' ');
+	data->player.a = 0.0;
+	data->player.y = 8.0;
+	data->player.x = 8.0;
 	return (0);
 }
 
 // void initialize(t_data *data)
 // {
-	
+
 // }
