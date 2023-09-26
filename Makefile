@@ -6,7 +6,7 @@
 #    By: stan <stan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/19 12:11:53 by sbarrage          #+#    #+#              #
-#    Updated: 2023/09/13 01:12:05 by stan             ###   ########.fr        #
+#    Updated: 2023/09/23 16:21:27 by stan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = cub3d
 SRC =	mlx_basics/exit_mlx.c mlx_basics/init_mlx.c mlx_basics/hook_mlx.c\
 		render/render_crtl.c render/draw.c render/first_draft.c\
 		gnl/get_next_line.c gnl/get_next_line_utils.c\
+		parsing/extractor.c parsing/parse.c parsing/tester.c\
 		main.c\
 
 SRC_DIR = source
@@ -23,7 +24,7 @@ SRCS = $(SRC:%=$(SRC_DIR)/%)
 
 OBJ_DIR = object
 
-MORE_ODIR = $(OBJ_DIR)/mlx_basics $(OBJ_DIR)/render $(OBJ_DIR)/gnl
+MORE_ODIR = $(OBJ_DIR)/mlx_basics $(OBJ_DIR)/render $(OBJ_DIR)/gnl $(OBJ_DIR)/parsing
 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

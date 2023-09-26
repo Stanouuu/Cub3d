@@ -6,7 +6,7 @@
 /*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:09:47 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/09/22 22:00:33 by stan             ###   ########.fr       */
+/*   Updated: 2023/09/23 16:33:30 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ typedef struct s_data
 	t_imge		img;
 	t_map		map;
 }	t_data;
+
+void ft_error(char *str);
 
 # include "mlx_basics.h"
 # include "render.h"
