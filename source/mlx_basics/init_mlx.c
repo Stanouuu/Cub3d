@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:15:29 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/09/22 22:00:09 by stan             ###   ########.fr       */
+/*   Updated: 2023/10/02 17:10:13 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_img(t_data *data)
 
 int init_mlx(t_data *data)
 {
+	data->map = NULL;
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
 		return (1);
