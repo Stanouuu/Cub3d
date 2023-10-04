@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 13:50:29 by stan              #+#    #+#             */
-/*   Updated: 2023/10/02 16:32:40 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/03 13:55:42 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ t_map *parse_central(char **argv, int argc, t_data *data)
 		return (NULL);
 	// printf("sucess 3\n");
 	data->map = info_extract(map_name);
+	// if (data->map == NULL)
+	// 	write(1, "sucess 1\n", 9);
 	// printf("sucess 4\n");
 	// write(1, "sucess 5 \n", 10);
 	return (data->map);

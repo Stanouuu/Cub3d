@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extractor.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:18:54 by stan              #+#    #+#             */
-/*   Updated: 2023/10/02 16:46:41 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/03 13:48:54 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ t_map	*info_extract(char *map_name)
 		printf("fcolor: %d\n", map->floor_color);
 		printf("ccolor: %d\n", map->ceiling_color);
 	}
-	if (extract_second_half(file, map) < 0)
+	if (extract_second_half(file, map) < 0 || map_check(map) < 0)
 		return (free_mat((void **)file, -1), NULL);
 	return (free_mat((void **)file, -1), map);
 }
