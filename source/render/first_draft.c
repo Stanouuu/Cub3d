@@ -1,43 +1,117 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   first_draft.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/04 15:57:55 by nklingsh          #+#    #+#             */
+/*   Updated: 2023/10/04 17:56:25 by nklingsh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "cube.h"
 
-void	first_draft(t_data *data)
+void init_data(t_data *data)
 {
-	t_player p = data->player;
+	data->player2.posX = 22;
+	data->player2.posY = 12;
+	data->player2.dirX = -1;
+	data->player2.dirY = 0;
+	data->player2.planeX = 0;
+	data->player2.planeY = 0.66;
+	data->player2.math.camera = 0;
+	data->player2.math.rayDirx = 0;
+	data->player2.math.rayDiry = 0;
+	data->map.map_width = 1000;
+	data->map.map_lenght = 1000;
+}
+void raycasting(t_data *data)
+{
+	int x;
 
-	p.fov = 3.14159 / 4;
-	for(int x = 0; x < 1000; x++)
+	x = 0;
+	while (x < data->map.map_width)
 	{
-		p.ray_angle = (p.a - p.fov / 2.0f) + ((float)x / 1000) * p.fov;
-		p.eyex = sinf(p.ray_angle);
-		p.eyey = cosf(p.ray_angle);
-		int obstacle = 0;
-		p.distance_to_wall = 0;
-		while (obstacle == 0 && p.distance_to_wall < 16)
-		{
-			p.distance_to_wall += 0.01;
-			int testx = (int)(p.x + p.eyex * p.distance_to_wall);
-			int testy = (int)(p.y + p.eyey * p.distance_to_wall);
-			if (testx < 0 || testx >= 1000 || testy < 0 || testy >= 1000)
-			{
-				obstacle=1;
-				p.distance_to_wall = 16;
-			}
-			else if ((data->maptmp[testy][testx]) == '1')
-				obstacle = 1;
-		}
-			int ceiling = (float)(1000 / 2.0) - 1000 / ((float)p.distance_to_wall);
-			int floor = 1000 - ceiling;
-			for (int y = 0; y < 1000; y++)
-			{
-				if (y < ceiling)
-					img_pix_put(&data->img, x, y, 0xffffff + y/10);
-				else if (y > ceiling && y <= floor)
-				{
-					img_pix_put(&data->img, x, y, 0x582030 - (int)(p.distance_to_wall) * 10);
-				}
-				else
-					img_pix_put(&data->img, x, y, 0xffffff + y/10);
-			}
+		data->player2.math.camera = (2 * x) / (float)data->.mapmap_width - 1;
+		data->player2.math.rayDirx = data->player2.dirX + data->player2.planeX * data->player2.math.camera;
+		data->player2.math.rayDiry = data->player2.dirY + data->player2.planeY * data->player2.math.camera; 
+		dda_algorithm(data);
+		
 	}
 }
+
+void dda_algorithm(t_data *data)
+{
+	int mapX = (int)data->player2.posX;
+	int mapY = (int)data->player2.posY;
+	float sideDistX;
+	float sideDistY;
+	float deltaDistX;
+	float deltaDistY;
+	float perpWallDist;
+	int stepx;
+	int stepy;
+	
+	int hit = 0;
+	int side;
+	
+	deltaDistX = sqrt(1 + (data->player2.math.rayDiry * data->player2.math.rayDiry) / (data->player2.math.rayDirx * data->player2.math.rayDirx));
+	deltaDistY = sqrt(1 + (data->player2.math.rayDirx * data->player2.math.rayDirx) / (data->player2.math.rayDiry * data->player2.math.rayDiry));
+
+	if (data->player2.math.rayDirx < 0)
+	{
+		stepx = -1;
+		sideDistX = (data->player2.posX - mapX) * deltaDistX;
+	}
+	else
+	{
+		stepx = 1;
+		sideDistX = (mapX + 1 - data->player2.posX) * deltaDistX;
+	}
+	if (data->player2.math.rayDiry < 0)
+	{
+		stepy = -1;
+		sideDistY = ( data->player2.posY - mapY) * deltaDistY;
+	}
+	else
+	{
+		stepy = 1;
+		sideDistY = (mapY + 1 - data->player2.posY) * deltaDistY;
+	}
+	while (hit == 0)
+	{
+		if (sideDistX < sideDistY)
+		{
+			sideDistX = sideDistX + deltaDistX;
+			mapX = mapX + stepx;
+			side = 0;
+		}
+		else
+		{
+			sideDistY = sideDistY + deltaDistY;
+			mapY = mapY + stepy;
+			side = 1;
+		}
+		if (data->maptmp[mapX][mapY] > 0)
+			hit = 1;
+	}
+	if (side == 0)
+		perpWallDist = (sideDistX - sideDistY);
+	else
+		perpWallDist = (sideDistY - sideDistX);
+	int h = 250;
+	int line_height = (int) (h / perpWallDist);
+	
+	int drawstart =- line_height / 2 + h / 2;
+	if (drawstart < 0)
+		drawstart = 0;
+	int drawend =- line_height / 2 + h / 2;
+	if (drawend >= h)
+		drawend = h - 1;
+	
+}
+
+
+

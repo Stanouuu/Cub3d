@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:09:47 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/09/22 22:00:33 by stan             ###   ########.fr       */
+/*   Updated: 2023/10/04 16:04:07 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,33 @@ typedef struct s_player
 
 } t_player;
 
+
+typedef struct s_math
+{
+	float camera;
+	float rayDirx;
+	float rayDiry;
+} t_math;
+
+
+typedef struct s_player2
+{
+	float posX;
+	float posY;
+	float dirX;
+	float dirY;
+	float planeX;
+	float planeY;
+	t_math math;
+} t_player2;
+
 typedef struct s_data
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
 	char		 **maptmp;
 	t_player player;
+	t_player2 player2;
 	t_imge		img;
 	t_map		map;
 }	t_data;
