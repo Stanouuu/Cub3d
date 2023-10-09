@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:32:59 by stan              #+#    #+#             */
-/*   Updated: 2023/10/09 11:51:22 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:39:36 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,20 @@ void	ft_exit_data(t_data *data)
 		ft_exit_map(data->map);
 }
 
-void ft_error(char *str)
-{
-	printf("%s: %s\n", str, strerror(errno));
-}
-
 void ft_exit(t_data *data)
 {
 	exit_mlx(data);
 	if (data)
 		ft_exit_data(data);
 }
+
+void ft_error(t_map *map, t_data *data)
+{
+	exit_mlx(data);
+	if (map)
+		ft_exit_map(map);
+	if (data)
+		ft_exit_data(data);
+	printf("Cube: %s\n", strerror(errno));
+}
+

@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:51:53 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/09 11:10:10 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:35:34 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 	// }
 	data.map = NULL;
 	if ((argc && !argv) || init_mlx(&data) > 0 || !parse_central(argv, argc, &data))
-		return (ft_exit(&data), 2);
+		return (2);
 	if (data.map)
 	{
 		// printf("north : %s\n", data.map->north);
@@ -41,7 +41,7 @@ int	main(int argc, char **argv)
 			{
 				printf("%d", data.map->map[i][j]);
 				j++;
-			}
+			}	
 			printf("\n");
 			i++;
 		}

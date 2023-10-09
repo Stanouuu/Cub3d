@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:18:54 by stan              #+#    #+#             */
-/*   Updated: 2023/10/09 12:21:50 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:38:35 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,25 +88,25 @@ int	str_to_hex(char *str)
 int	extract_first_half(char **file, t_map *map)
 {
 	if (check_first_half(file) != 6)
-		return (free(map), -1);
+		return (-1);
 	map->north = find_blank_dir(file, "NO ", 3);
 	if (!map->north)
-		return (free(map), -2);
+		return (-2);
 	map->south = find_blank_dir(file, "SO ", 3);
 	if (!map->south)
-		return (free(map), -3);
+		return (-3);
 	map->west = find_blank_dir(file, "WE ", 3);
 	if (!map->west)
-		return (free(map), -4);
+		return (-4);
 	map->east = find_blank_dir(file, "EA ", 3);
 	if (!map->east)
-		return (free(map), -5);
+		return (-5);
 	map->floor_color = str_to_hex(find_blank_dir(file, "F ", 2));
 	if (map->floor_color == -1)
-		return (ft_exit_map(map), -6);
+		return (-6);
 	map->ceiling_color = str_to_hex(find_blank_dir(file, "C ", 2));
 	if (map->ceiling_color == -1)
-		return (ft_exit_map(map), -7);
+		return (-7);
 	return (0);
 }
 
@@ -117,18 +117,16 @@ t_map	*info_extract(char *map_name, t_data *data)
 
 	file = extract_file(map_name);
 	if (!file)
-		return (NULL);
+		return (ft_error(NULL, NULL), NULL);
 	map = malloc(sizeof(t_map));
 	if (!map)
-		return (free(map), free_mat((void **)file, -1), NULL);
+		return (ft_error(NULL, data), free_mat((void **)file, -1), NULL);
 	map->map = NULL;
 	if (extract_first_half(file, map) < 0)
-		return (free_mat((void **)file, -1), NULL);
+		return (ft_error(map, data), free_mat((void **)file, -1), NULL);
 	if (extract_second_half(file, map, data) < 0 || map_check(map) < 0)
 	{
-		if (map)
-			ft_exit_map(map);
-		return (free_mat((void **)file, -1), NULL);
+		return (ft_error(map, data), free_mat((void **)file, -1), NULL);
 	}
 	free_mat((void **)file, -1);
 	return (map);
