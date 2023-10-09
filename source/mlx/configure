@@ -24,16 +24,17 @@ get_xlib_include_path(){
 	local result=""
 
 	for inc in \
-		/usr/X11/include          \
-		/usr/X11R6/include        \
-		/usr/X11R5/include        \
-		/usr/X11R4/include        \
-								\
 		/usr/include              \
 		/usr/include/X11          \
 		/usr/include/X11R6        \
 		/usr/include/X11R5        \
-		/usr/include/X11R4        \
+		/usr/include/X11R4		\
+								\
+		/usr/X11/include          \
+		/usr/X11R6/include        \
+		/usr/X11R5/include        \
+		/usr/X11R4/include        \
+								\      \
 								\
 		/usr/local/X11/include    \
 		/usr/local/X11R6/include  \
@@ -96,7 +97,7 @@ parse_args(){
 }
 
 main(){
-	local xlib_inc="$(get_xlib_include_path)"
+	local xlib_inc="/usr/include/X11"
 
 	case $(uname) in
 		FreeBSD) MAKE=gmake ;;

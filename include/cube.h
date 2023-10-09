@@ -20,13 +20,24 @@
 #include "../source/gnl/get_next_line.h"
 #include "libft.h"
 
+#define HEIGHT 480
+#define WIDTH 640
+#define texWidth 64
+#define texHeight 64
+#define mapWidth 24
+#define mapHeight 24
+
 typedef struct s_imge
 {
 	void	*mlx_img;
 	char	*addr;
+	int		*data;
 	int		bpp;
 	int		line_len;
 	int		endian;
+	int		size;
+	int 	img_w;
+	int		img_h;
 }	t_imge;
 
 /* map */
@@ -48,14 +59,16 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	float	fov;
-	float	x;
-	float	y;
-	float	a;
-	float	eyex;
-	float	eyey;
-	float	ray_angle;
-	float	distance_to_wall;
+	float	posX;
+	float	posY;
+	float	dirX;
+	float	dirY;
+	float	planeX;
+	float	planeY;
+	int		**texture;
+	float	movespeed;
+	float	roatationspeed;
+	int		re_buf;
 
 } t_player;
 
@@ -64,6 +77,7 @@ typedef struct s_data
 	void		*mlx_ptr;
 	void		*win_ptr;
 	char		 **maptmp;
+	int			bufbuf[HEIGHT][WIDTH];
 	t_player player;
 	t_imge		img;
 	t_map		map;
@@ -71,5 +85,10 @@ typedef struct s_data
 
 # include "mlx_basics.h"
 # include "render.h"
+
+
+int loop_loop(t_data *data);
+void load_texture(t_data *data);
+
 
 #endif
