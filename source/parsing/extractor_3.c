@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   extractor_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/23 13:50:29 by stan              #+#    #+#             */
-/*   Updated: 2023/10/09 12:38:25 by sbarrage         ###   ########.fr       */
+/*   Created: 2023/10/09 12:08:35 by sbarrage          #+#    #+#             */
+/*   Updated: 2023/10/09 12:09:32 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-char	*basic_check(char **argv, int argc)
+char	**extract_file(char *map_name)
 {
-	int	i;
+	char	**file;
+	int		fd;
+	int		i;
 
-	if (argc != 2)
+	i = nbr_lines(map_name);
+	if (i == -1)
 		return (NULL);
-	i = ft_strlen(argv[1]) - 4;
-	if (ft_strncmp(argv[1] + i, ".cub", 5) != 0)
+	fd = open(map_name, O_RDONLY);
+	if (fd == -1)
 		return (NULL);
-	return (argv[1]);
-}
-
-t_map	*parse_central(char **argv, int argc, t_data *data)
-{
-	char	*map_name;
-
-	data->player.a = -1;
-	map_name = basic_check(argv, argc);
-	if (map_name == NULL)
+	file = malloc(sizeof(char *) * (i + 1));
+	if (!file)
 		return (NULL);
-	data->map = info_extract(map_name, data);
-	return (data->map);
+	i = 0;
+	file[i] = get_next_line(fd);
+	while (file[i])
+		file[++i] = get_next_line(fd);
+	return (file);
 }

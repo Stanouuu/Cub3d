@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:45:20 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/03 14:11:40 by stan             ###   ########.fr       */
+/*   Updated: 2023/10/04 17:57:32 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_map(char **file)
 {
-	int i;
+	int	i;
 	int	j;
 
 	i = 0;
@@ -34,7 +34,7 @@ int	check_map(char **file)
 
 int	size_compar(char *line, int j)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i] == ' ' || (line[i] <= 13 && line[i] >= 9))
@@ -48,7 +48,7 @@ int	size_compar(char *line, int j)
 
 int	map_width(char **file)
 {
-	int i;
+	int	i;
 	int	j;
 
 	i = 0;
@@ -60,10 +60,10 @@ int	map_width(char **file)
 	return (j);
 }
 
-int arround(int i, int j, int **map)
+int	arround(int i, int j, int **map)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = -1;
 	if (map[i][j] != 0)
@@ -78,66 +78,6 @@ int arround(int i, int j, int **map)
 			y++;
 		}
 		x++;
-	}
-	return (1);
-}
-
-int	check_width(int i, int j, t_map *map)
-{
-	while (j != map->map_width)
-	{
-		if (map->map[i][j] == 0)
-			return (-1);
-		j++;
-	}
-	j = 0;
-	while (j != map->map_width)
-	{
-		if (map->map[map->map_lenght - 1][j] == 0)
-			return (-2);
-		j++;
-	}
-	return (1);
-}
-
-int check_lenght(int i, int j, t_map *map)
-{
-	while (i != map->map_lenght)
-	{
-		if (map->map[i][j] == 0)
-			return (-1);
-		i++;
-	}
-	i = 0;
-	while (i != map->map_lenght)
-	{
-		if (map->map[i][map->map_width - 1] == 0)
-			return (-2);
-		i++;
-	}
-	return (1);
-}
-
-int map_check(t_map *map)
-{
-	int	i;
-	int j;
-
-	if (check_width(0, 0, map) < 0)
-		return (-1);
-	if (check_lenght(0, 0, map) < 0)
-		return (-2);
-	i = 1;
-	while (i < map->map_lenght - 1)
-	{
-		j = 1;
-		while (j < map->map_width - 1)
-		{
-			if (arround(i, j, map->map) == -1)
-				return (-5);
-			j++;
-		}
-		i++;
 	}
 	return (1);
 }

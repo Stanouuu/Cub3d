@@ -6,17 +6,17 @@
 #    By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/19 12:11:53 by sbarrage          #+#    #+#              #
-#    Updated: 2023/10/02 14:57:13 by sbarrage         ###   ########.fr        #
+#    Updated: 2023/10/09 12:09:44 by sbarrage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
 SRC =	mlx_basics/exit_mlx.c mlx_basics/init_mlx.c mlx_basics/hook_mlx.c\
-		render/render_crtl.c render/draw.c render/first_draft.c\
+		render/render_crtl.c render/draw.c\
 		gnl/get_next_line.c gnl/get_next_line_utils.c\
 		parsing/extractor.c parsing/parse.c parsing/tester.c parsing/checks.c\
-		parsing/extractor_2.c parsing/checks_2.c\
+		parsing/extractor_2.c parsing/checks_2.c parsing/checks_3.c parsing/extractor_3.c\
 		main.c error.c\
 
 SRC_DIR = source

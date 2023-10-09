@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:32:59 by stan              #+#    #+#             */
-/*   Updated: 2023/10/02 17:12:32 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/09 11:51:22 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ void	ft_exit_map(t_map *map)
 {
 	if (map->map)
 		free_mat((void **)map->map,  map->map_lenght);
+	if (map->north)
+		free(map->north);
+	if (map->south)
+		free(map->south);
+	if (map->east)
+		free(map->east);
+	if (map->west)
+		free(map->west);
 	free(map);
 }
 

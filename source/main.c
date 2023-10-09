@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:51:53 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/02 16:31:58 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/09 11:10:10 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,38 @@
 int	main(int argc, char **argv)
 {
 	t_data	data;
+	int j = 0;
+	int i = 0;
 
 	// if (!(argc == 2) || argv_check(argv[1]) != 0)
 	// {
 	// 	write(0, "Error\n", 6);
 	// 	return (1);
 	// }
-	printf("sucess 5\n");
+	data.map = NULL;
 	if ((argc && !argv) || init_mlx(&data) > 0 || !parse_central(argv, argc, &data))
 		return (ft_exit(&data), 2);
+	if (data.map)
+	{
+		// printf("north : %s\n", data.map->north);
+		// printf("east  : %s\n", data.map->east);
+		// printf("west  : %s\n", data.map->west);
+		// printf("south : %s\n", data.map->south);
+		printf("fcolor: %d\n", data.map->floor_color);
+		printf("ccolor: %d\n", data.map->ceiling_color);
+		while (data.map->map_lenght != i)
+		{
+			j = 0;
+			while (data.map->map_width != j)
+			{
+				printf("%d", data.map->map[i][j]);
+				j++;
+			}
+			printf("\n");
+			i++;
+		}
+	}
+	printf("sucess 5\n");
 	// initialize(&data);
 	// data.map = open("map", O_RDONLY);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_input, &data);

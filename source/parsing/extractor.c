@@ -3,35 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   extractor.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:18:54 by stan              #+#    #+#             */
-/*   Updated: 2023/10/03 13:48:54 by stan             ###   ########.fr       */
+/*   Updated: 2023/10/09 12:21:50 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "cube.h"	
 
-char	**extract_file(char *map_name)
+char	*reformat(char *str)
 {
-	char	**file;
-	int		fd;
 	int		i;
+	char	*res;
 
-	i = nbr_lines(map_name);
-	if (i == -1)
-		return (NULL);
-	fd = open(map_name, O_RDONLY);
-	if (fd == -1)
-		return (NULL);
-	file = malloc(sizeof(char *) * (i + 1));
-	if (!file)
-		return (NULL);
 	i = 0;
-	file[i] = get_next_line(fd);
-	while (file[i])
-		file[++i] = get_next_line(fd);
-	return (file);
+	res = malloc(sizeof(char) * ft_strlen(str));
+	if (!res)
+		return (NULL);
+	while (str[i + 1])
+	{
+		res[i] = str[i];
+		i++;
+	}
+	return (res);
 }
 
 char	*find_blank_dir(char **file, char *dir, int s)
@@ -60,7 +55,7 @@ char	*find_blank_dir(char **file, char *dir, int s)
 			return (NULL);
 		j++;
 	}
-	return (file[i] + (j - 1));
+	return (reformat(file[i] + (j - 1)));
 }
 
 int	str_to_hex(char *str)
@@ -78,17 +73,13 @@ int	str_to_hex(char *str)
 	while (nbrs[i] && *(nbrs[i]))
 		i++;
 	if (i != 3)
-	{
-		while (i != 0)
-			free(nbrs[--i]);
-		return (-1);
-	}
+		return (free_mat((void **)nbrs, -1), -1);
 	while (i != 0)
 	{
 		i--;
 		rgb[i] = is_rgb(nbrs[i]);
 		if (rgb[i] == -1)
-			return (-1);
+			return (free_mat((void **)nbrs, -1), -1);
 	}
 	free_mat((void **)nbrs, -1);
 	return ((rgb[0] << 16) | (rgb[1] << 8) | rgb[2]);
@@ -112,14 +103,14 @@ int	extract_first_half(char **file, t_map *map)
 		return (free(map), -5);
 	map->floor_color = str_to_hex(find_blank_dir(file, "F ", 2));
 	if (map->floor_color == -1)
-		return (free(map), -6);
+		return (ft_exit_map(map), -6);
 	map->ceiling_color = str_to_hex(find_blank_dir(file, "C ", 2));
 	if (map->ceiling_color == -1)
-		return (free(map), -7);
+		return (ft_exit_map(map), -7);
 	return (0);
 }
 
-t_map	*info_extract(char *map_name)
+t_map	*info_extract(char *map_name, t_data *data)
 {
 	char	**file;
 	t_map	*map;
@@ -129,20 +120,16 @@ t_map	*info_extract(char *map_name)
 		return (NULL);
 	map = malloc(sizeof(t_map));
 	if (!map)
-		return (free_mat((void **)file, -1), NULL);
+		return (free(map), free_mat((void **)file, -1), NULL);
+	map->map = NULL;
 	if (extract_first_half(file, map) < 0)
 		return (free_mat((void **)file, -1), NULL);
-	// printf("%s\n", map->north);
-	if (map)
+	if (extract_second_half(file, map, data) < 0 || map_check(map) < 0)
 	{
-		printf("north : %s\n", map->north);
-		printf("east  : %s\n", map->east);
-		printf("west  : %s\n", map->west);
-		printf("south : %s\n", map->south);
-		printf("fcolor: %d\n", map->floor_color);
-		printf("ccolor: %d\n", map->ceiling_color);
-	}
-	if (extract_second_half(file, map) < 0 || map_check(map) < 0)
+		if (map)
+			ft_exit_map(map);
 		return (free_mat((void **)file, -1), NULL);
-	return (free_mat((void **)file, -1), map);
+	}
+	free_mat((void **)file, -1);
+	return (map);
 }

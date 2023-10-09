@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 14:32:26 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/02 16:44:17 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/09 11:10:25 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int	is_rgb(char *str)
 
 int	nbr_lines(char *map_name)
 {
-	int	fd;
-	int	count;
-	char *str;
+	int		fd;
+	int		count;
+	char	*str;
 
 	count = 0;
 	fd = open(map_name, O_RDONLY);
