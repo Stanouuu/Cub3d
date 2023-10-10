@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:18:54 by stan              #+#    #+#             */
-/*   Updated: 2023/10/09 15:38:35 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/10 14:42:18 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,10 @@ t_map	*info_extract(char *map_name, t_data *data)
 	map = malloc(sizeof(t_map));
 	if (!map)
 		return (ft_error(NULL, data), free_mat((void **)file, -1), NULL);
+	map->east = NULL;
+	map->west = NULL;
+	map->south = NULL;
+	map->north = NULL;
 	map->map = NULL;
 	if (extract_first_half(file, map) < 0)
 		return (ft_error(map, data), free_mat((void **)file, -1), NULL);
