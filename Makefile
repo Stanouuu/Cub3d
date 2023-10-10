@@ -3,19 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: stan <stan@student.42.fr>                  +#+  +:+       +#+         #
+#    By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/19 12:11:53 by sbarrage          #+#    #+#              #
-#    Updated: 2023/09/13 01:12:05 by stan             ###   ########.fr        #
+#    Updated: 2023/10/10 13:37:45 by nklingsh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
 SRC =	mlx_basics/exit_mlx.c mlx_basics/init_mlx.c mlx_basics/hook_mlx.c\
-		render/render_crtl.c render/draw.c render/first_draft.c\
-		gnl/get_next_line.c gnl/get_next_line_utils.c\
-		main.c\
+		raycaster.c move.c initall.c handler.c\
+		main.c utils/print_shit.c\
 
 SRC_DIR = source
 

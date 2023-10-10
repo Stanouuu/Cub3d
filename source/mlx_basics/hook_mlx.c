@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 15:31:58 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/09/22 22:00:57 by stan             ###   ########.fr       */
+/*   Updated: 2023/09/27 17:33:34 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ int	handle_input(int keysym, t_data *data)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		data->win_ptr = NULL;
 	}
-	if (keysym == 65363)
-		data->player.a -= 0.1f;
 	if (keysym == 65361)
+		data->player.a -= 0.01f;
+	if (keysym == 65363)
 	{
-		data->player.a += 0.1f;
+		data->player.a += 0.01f;
 	}
-	if (keysym == XK_q)
+	if (keysym == XK_n)
+		print_all_player_data(data->player);
+	if (keysym == XK_a)
 	{
 		data->player.y += sinf(data->player.a) * 0.1f;
 		data->player.x -= cosf(data->player.a) * 0.1f;
+		write(1, "a" ,1);
 		if (data->maptmp[(int)data->player.y][(int)data->player.x] == '1')
-		{
-			data->player.y -= sinf(data->player.a) * 0.1f;
-			data->player.x += cosf(data->player.a) * 0.1f;
-		}
+			data->player.a -= 0.1f;
 	}
 	if (keysym == XK_d)
 	{
@@ -56,7 +56,7 @@ int	handle_input(int keysym, t_data *data)
 			data->player.x += sinf(data->player.a) * 0.1f;
 		}
 	}
-	if (keysym == XK_z)
+	if (keysym == XK_w)
 	{
 		data->player.y += cosf(data->player.a) * 0.1f;
 		data->player.x += sinf(data->player.a) * 0.1f;

@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:15:29 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/09/22 22:00:09 by stan             ###   ########.fr       */
+/*   Updated: 2023/10/10 13:57:25 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-void	init_img(t_data *data)
-{
-	t_imge	i;
+// void	init_img(t_data *data)
+// {
+// 	t_imge	i;
 
-	i.mlx_img = mlx_new_image(data->mlx_ptr, 1000, 1000);
-	i.addr = mlx_get_data_addr(i.mlx_img, &i.bpp, &i.line_len, &i.endian);
-	data->img = i;
-}
+// 	i.mlx_img = mlx_new_image(data->mlx_ptr, 1000, 1000);
+// 	i.addr = mlx_get_data_addr(i.mlx_img, &i.bpp, &i.line_len, &i.endian);
+// 	data->img = i;
+// }
 
 // void init_player(t_data *data)
 // {
@@ -31,24 +31,25 @@ void	init_img(t_data *data)
 // 	data->img = i;
 // }
 
-int init_mlx(t_data *data)
-{
-	data->mlx_ptr = mlx_init();
-	if (!data->mlx_ptr)
-		return (1);
-	data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, "FDF");
-	if (data->win_ptr == NULL)
-	{
-		free(data->mlx_ptr);
-		return (2);
-	}
-	init_img(data);
-	data->maptmp = ft_split("1111111111111111 1000000000000001 1000000000000001 1000000001111111 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1111111111111111 ", ' ');
-	data->player.a = 0.0;
-	data->player.y = 8.0;
-	data->player.x = 8.0;
-	return (0);
-}
+// int init_mlx(t_data *data)
+// {
+// 	data->mlx_ptr = mlx_init();
+// 	if (!data->mlx_ptr)
+// 		return (1);
+// 	data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, "FDF");
+// 	if (data->win_ptr == NULL)
+// 	{
+// 		free(data->mlx_ptr);
+// 		return (2);
+// 	}
+// 	init_img(data);
+// 	data->maptmp = ft_split("1111111111111111111111 100000000000000000000000000000000000000000000000000000000000001 1000111100000001 1000000001111111 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1111111111111111 ", ' ');
+// 	data->square = 10;
+// 	data->player.a = 0.0;
+// 	data->player.y = 8.0;
+// 	data->player.x = 8.0;
+// 	return (0);
+// }
 
 // void initialize(t_data *data)
 // {
