@@ -1,4 +1,0 @@
-step 1
- Have a window open
-step 2 
- put a pixel

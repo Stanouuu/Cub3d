@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.h                                           :+:      :+:    :+:   */
+/*   extractor_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/04 18:26:01 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/02 14:46:11 by sbarrage         ###   ########.fr       */
+/*   Created: 2023/10/09 12:08:35 by sbarrage          #+#    #+#             */
+/*   Updated: 2023/10/09 12:09:32 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDER_H
-# define RENDER_H
-
 #include "cube.h"
 
-void	img_pix_put(t_imge *img, int x, int y, int color);
-int		render_ctrl(t_data *data);
-void	first_draft(t_data *data);
+char	**extract_file(char *map_name)
+{
+	char	**file;
+	int		fd;
+	int		i;
 
-#endif
+	i = nbr_lines(map_name);
+	if (i == -1)
+		return (NULL);
+	fd = open(map_name, O_RDONLY);
+	if (fd == -1)
+		return (NULL);
+	file = malloc(sizeof(char *) * (i + 1));
+	if (!file)
+		return (NULL);
+	i = 0;
+	file[i] = get_next_line(fd);
+	while (file[i])
+		file[++i] = get_next_line(fd);
+	return (file);
+}
