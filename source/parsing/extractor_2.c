@@ -6,27 +6,33 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:29:31 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/10 14:35:40 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:05:30 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-void	player_info_extract(int x, int y, char direction, t_player *player)
+int	player_info_extract(int x, int y, char direction, t_player *player)
 {
 	player->x = x;
 	player->y = y;
 	if (direction == 'N')
-		player->a = 0;
+		player->a += 1;
 	else if (direction == 'S')
-		player->a = 180;
+		player->a += 181;
 	else if (direction == 'E')
-		player->a = 90;
+		player->a += 91;
 	else if (direction == 'W')
-		player->a = 270;
+		player->a += 271;
+	if ((int)player->a % 2 == 1)
+	{
+		player->a = -1;
+		return (-1);
+	}
+	return (1);
 }
 
-void	fill_map_3(char *file, t_map *map, int h, t_data *data)
+int	fill_map_3(char *file, t_map *map, int h, t_data *data)
 {
 	int	j;
 
@@ -46,10 +52,12 @@ void	fill_map_3(char *file, t_map *map, int h, t_data *data)
 			map->map[h][j++] = 1;
 		else
 		{
-			player_info_extract(h, j, file[j], &(data->player));
+			if (player_info_extract(h, j, file[j], &(data->player)) == -1)
+				return (-1);
 			map->map[h][j++] = 0;
 		}
 	}
+	return (1);
 }
 
 void	fill_map_2(t_map *map, char **file, int i, t_data *data)
@@ -59,7 +67,8 @@ void	fill_map_2(t_map *map, char **file, int i, t_data *data)
 	h = 0;
 	while (map->map_lenght > h)
 	{
-		fill_map_3(file[i], map, h, data);
+		if (fill_map_3(file[i], map, h, data) == -1)
+			return ;
 		i++;
 		h++;
 	}
