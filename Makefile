@@ -6,7 +6,7 @@
 #    By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/19 12:11:53 by sbarrage          #+#    #+#              #
-#    Updated: 2023/10/09 12:09:44 by sbarrage         ###   ########.fr        #
+#    Updated: 2023/10/10 13:47:06 by sbarrage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ clean:
 	rm -rf $(MORE_ODIR)
 
 fclean:	 mlxclean clean
-	@make fclean -C ./source/Libft
+	@make fclean -sC ./source/Libft
 	rm -f ${NAME}
 
 re: clean fclean all mlxclean

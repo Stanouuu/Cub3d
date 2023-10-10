@@ -6,7 +6,7 @@
 #    By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 17:15:24 by yanthoma          #+#    #+#              #
-#    Updated: 2022/05/19 18:09:23 by sbarrage         ###   ########.fr        #
+#    Updated: 2023/10/10 13:46:43 by sbarrage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,14 +22,7 @@ SRCS	=	ft_atoi.c		ft_isalpha.c	ft_memmove.c	ft_strdup.c\
 			ft_strmapi.c	ft_striteri.c	ft_putchar_fd.c	ft_putstr_fd.c\
 			ft_putendl_fd.c	ft_putnbr_fd.c\
 
-BONUS = ft_lstadd_front.c	ft_lstlast.c		ft_lstnew.c		ft_lstclear.c\
-		ft_lstsize.c		ft_lstadd_back.c	ft_lstdelone.c	ft_lstiter.c\
-		ft_lstmap.c\
-
 OBJS	= ${SRCS:.c=.o}
-
-Bonus_OBJS = ${BONUS:.c=.o}
-
 
 CC	= gcc
 
@@ -43,11 +36,8 @@ all:	$(NAME)
 $(NAME): ${OBJS}
 	ar rcs ${NAME} ${OBJS}
 
-bonus:	${Bonus_OBJS}
-	ar rcs ${NAME} ${Bonus_OBJS}
-
 clean:
-	rm -f ${OBJS} ${Bonus_OBJS}
+	rm -f ${OBJS}
 
 fclean:	clean
 	rm -f ${NAME}
