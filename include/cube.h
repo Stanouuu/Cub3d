@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:09:47 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/09 15:38:58 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/11 15:26:47 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <math.h>
 #include <X11/Xlib.h>
 # include "mlx_int.h"
+#include <stdlib.h>
 # include "mlx.h"
 #include "../source/gnl/get_next_line.h"
 #include "libft.h"
@@ -28,7 +29,10 @@ typedef struct s_imge
 	int		bpp;
 	int		*tex;
 	int		line_len;
+	int 	tex_to_open;
 	int		endian;
+	int		tex_width;
+	int		tex_height;
 }	t_imge;
 
 /* map */
@@ -48,11 +52,10 @@ typedef struct s_map
 
 typedef struct s_tex
 {
-	t_imge wall_no;
-	t_imge wall_so;
-	t_imge wall_we;
-	t_imge wall_ea;
-	
+	t_imge *wall_no;
+	t_imge *wall_so;
+	t_imge *wall_we;
+	t_imge *wall_ea;
 } t_tex;
 
 /* for you change it as you please */
@@ -95,7 +98,7 @@ typedef struct s_data
 	void		*win_ptr;
 	char		 **maptmp;
 	t_player player;
-	t_tex 		tex;
+	t_tex 		*tex;
 	t_ray		ray;
 	t_imge		img;
 	t_map		*map;
@@ -104,6 +107,7 @@ typedef struct s_data
 void	ft_error(t_map *map, t_data *data);
 void	ft_exit(t_data *data);
 void	free_mat(void **tab, int l);
+void init_tex(t_data *data);
 void	ft_exit_map(t_map *map);
 
 # include "mlx_basics.h"

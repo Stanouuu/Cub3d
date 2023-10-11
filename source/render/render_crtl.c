@@ -3,38 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   render_crtl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:27:48 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/09 11:02:52 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/11 18:08:15 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 //add floor ceiling
 
-void load_tex(t_data *data)
-{
-	int y;
 
-	y = 0;
-	while (y < 64 * 64)
-	{
-		data->tex.wall_no.tex[y] = 0;
-		data->tex.wall_so.tex[y] = 0;
-		data->tex.wall_ea.tex[y] = 0;
-		data->tex.wall_we.tex[y] = 0;
-		y++;
-	}
+void load_north(t_data *data)
+{
+	printf("\n%s\n",data->map->north);
+	data->tex->wall_no = malloc(sizeof(t_imge));
+	data->tex->wall_no->mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, data->map->north, &data->tex->wall_no->tex_width, &data->tex->wall_no->tex_height);
+	data->tex->wall_no->addr = mlx_get_data_addr(data->tex->wall_no->mlx_img, &data->tex->wall_no->bpp , &data->tex->wall_no->line_len, &data->tex->wall_no->endian);
 }
+
+// void load_south(t_data *data)
+// {
+// 	data->tex->wall_so.mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, data->map->south, &data->tex->wall_so.tex_width, &data->tex->wall_so.tex_height);
+// 	data->tex->wall_so.addr = mlx_get_data_addr(data->tex->wall_so.mlx_img, &data->tex->wall_so.bpp , &data->tex->wall_so.line_len, &data->tex->wall_so.endian);
+// }
+// void load_west(t_data *data)
+// {
+// 	data->tex->wall_we.mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, data->map->west, &data->tex->wall_we.tex_width, &data->tex->wall_we.tex_height);
+// 	data->tex->wall_we.addr = mlx_get_data_addr(data->tex->wall_we.mlx_img, &data->tex->wall_we.bpp , &data->tex->wall_we.line_len, &data->tex->wall_we.endian);
+// }
+// void load_east(t_data *data)
+// {
+// 	data->tex->wall_ea.mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, data->map->east, &data->tex->wall_ea.tex_width, &data->tex->wall_ea.tex_height);
+// 	data->tex->wall_ea.addr = mlx_get_data_addr(data->tex->wall_ea.mlx_img, &data->tex->wall_ea.bpp , &data->tex->wall_ea.line_len, &data->tex->wall_ea.endian);
+// }
 
 void init_tex(t_data *data)
 {
-	data->tex.wall_ea.tex = (int *)malloc(sizeof(int) * (64 * 64));
-	data->tex.wall_so.tex = (int *)malloc(sizeof(int) * (64 * 64));
-	data->tex.wall_we.tex = (int *)malloc(sizeof(int) * (64 * 64));
-	data->tex.wall_no.tex = (int *)malloc(sizeof(int) * (64 * 64));
-	load_tex(data);
+	data->tex = malloc(sizeof(t_tex));
+	load_north(data);
+	// load_south(data);
+	// load_west(data);
+	// load_east(data);
 }
 
 
@@ -45,7 +55,6 @@ void raycaster(t_data *data)
 
 	data->player.planeX = 0.0;
 	data->player.planeY = 0.66;
-	init_tex(data);
 
 	for (int x = 0; x < data->map->map_width; x++)
 	{
@@ -101,10 +110,11 @@ void raycaster(t_data *data)
 				data->ray.hit = 1;
 		}
 		if (data->ray.side == 0)
-			data->ray.perpWallDist = (data->ray.sideDistX - data->ray.deltadistX);
+			data->ray.perpWallDist = (data->ray.sideDistX - data->ray.deltadistX);	
 		else
 			data->ray.perpWallDist = (data->ray.sideDistY - data->ray.deltadistY);
 
+		
 		int lineHeight = (int) data->map->map_lenght / data->ray.perpWallDist;
 
 		int drawstart = -lineHeight / 2 + data->map->map_lenght / 2;
@@ -115,27 +125,37 @@ void raycaster(t_data *data)
 			drawend = data->map->map_lenght - 1;
 
 		float wallX;
-
+	
 		if (data->ray.side == 0)
 			wallX = data->player.y + data->ray.rayDirY;
 		else
 			wallX = data->player.x + data->ray.rayDirX;
-		wallX = wallX - floor(wallX);
+		wallX = wallX - (int)wallX;
 		printf("wall x : %f\n", wallX);
 		int texX = (int)(wallX * (float) 64.0);
 		if (data->ray.side == 0 && data->ray.rayDirX > 0)
 			texX = 64.0 - texX - 1;
 		if (data->ray.side == 1 && data->ray.rayDirY < 0)
-			texX = 64.0 - texX - 1;
+			texX = 64.0 - texX - 1;	
+		
+		// float step = 1.0 * data->tex->wall_no->tex_height / data->tex->wall_no->tex_width;
+		// float texPos = (drawstart - data->map->map_lenght / 2 + lineHeight / 2) * step;
+		
 
-		float step = 1.0 * 64.0 / lineHeight;
-		float texpos = (drawstart - data->map->map_lenght / 2 + lineHeight / 2) * step;
-		for (int y = drawstart; y < drawend; y++)
+		// for (int z = drawstart; z < drawend; z++)
+		// {
+		// 	int texY = (int)texPos & (data->tex->wall_no->tex_height - 1);
+		// 	texPos = texPos + step;
+		// }
+		int d = 0;
+		while (d < data->map->map_lenght)
 		{
-			int texY = (int)texpos & (64 - 1);
-			texpos = texpos + step;
-			color = 
-
+			printf()
+			if (d <= drawstart)
+				img_pix_put(data->tex->wall_no->mlx_img, x, d, data->map->floor_color);
+			if (d >= drawend)
+				img_pix_put(data->tex->wall_no->mlx_img, x, d, data->map->floor_color);
+			d++;
 		}
 
 	}
@@ -145,11 +165,11 @@ void raycaster(t_data *data)
 
 int render_ctrl(t_data *data)
 {
-	// t_imge *img = &(data->img);
+	t_imge *img = &(data->img);
 
 	if (data->win_ptr == NULL)
 		return (1);
 	raycaster(data);
-	// mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, img->mlx_img, 0, 0);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, img->mlx_img, 0, 0);
 	return (1);
 }

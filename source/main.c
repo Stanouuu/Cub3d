@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:51:53 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/09 15:35:34 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:07:23 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	main(int argc, char **argv)
 		return (2);
 	if (data.map)
 	{
-		// printf("north : %s\n", data.map->north);
-		// printf("east  : %s\n", data.map->east);
-		// printf("west  : %s\n", data.map->west);
-		// printf("south : %s\n", data.map->south);
+		printf("north : %s\n", data.map->north);
+		printf("east  : %s\n", data.map->east);
+		printf("west  : %s\n", data.map->west);
+		printf("south : %s\n", data.map->south);
 		printf("fcolor: %d\n", data.map->floor_color);
 		printf("ccolor: %d\n", data.map->ceiling_color);
 		while (data.map->map_lenght != i)
@@ -41,6 +41,10 @@ int	main(int argc, char **argv)
 			i++;
 		}
 	}
+	printf("\n%s\n",data.map->north);
+	printf("\n%s\n",data.map->north);
+	printf("\n%s\n",data.map->north);
+	init_tex(&data);
 	printf("%d\n", data.map->map_width);
 	printf("%d\n", data.map->map_lenght);
 	printf("sucess 5\n");
