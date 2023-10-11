@@ -18,11 +18,6 @@ int	main(int argc, char **argv)
 	int j = 0;
 	int i = 0;
 
-	// if (!(argc == 2) || argv_check(argv[1]) != 0)
-	// {
-	// 	write(0, "Error\n", 6);
-	// 	return (1);
-	// }
 	data.map = NULL;
 	if ((argc && !argv) || init_mlx(&data) > 0 || !parse_central(argv, argc, &data))
 		return (2);
@@ -46,7 +41,10 @@ int	main(int argc, char **argv)
 			i++;
 		}
 	}
+	printf("%d\n", data.map->map_width);
+	printf("%d\n", data.map->map_lenght);
 	printf("sucess 5\n");
+	
 	// initialize(&data);
 	// data.map = open("map", O_RDONLY);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_input, &data);
