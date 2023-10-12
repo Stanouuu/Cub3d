@@ -6,7 +6,7 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:27:48 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/12 16:29:47 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:08:08 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ void raycaster(t_data *data)
 		else
 			data->ray.perpWallDist = (data->ray.sideDistY - data->ray.deltadistY);
 
-		
 		int lineHeight = (int) LENGTH / data->ray.perpWallDist;
 
 		int drawstart = -lineHeight / 2 + LENGTH / 2;
