@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:32:59 by stan              #+#    #+#             */
-/*   Updated: 2023/10/09 15:39:36 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:53:23 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,16 @@ void ft_exit(t_data *data)
 		ft_exit_data(data);
 }
 
-void ft_error(t_map *map, t_data *data)
+void ft_error(t_map *map, t_data *data, char *str)
 {
 	exit_mlx(data);
 	if (map)
 		ft_exit_map(map);
 	if (data)
 		ft_exit_data(data);
-	printf("Cube: %s\n", strerror(errno));
+	if (errno == ENOMEM || errno == ENOENT || errno == EACCES || errno == EISDIR)
+		printf("Cube: %s\n", strerror(errno));
+	else if (str)
+		printf ("Cube: %s\n", str);
 }
 
