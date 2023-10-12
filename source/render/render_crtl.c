@@ -143,8 +143,8 @@ void raycaster(t_data *data)
 				img_pix_put(&data->img, x, d, data->map->floor_color);
 			if (d >= drawend)
 				img_pix_put(&data->img, x, d, data->map->ceiling_color);
-			// int texy = (int)data->tex->wall_no->tex_height / lineHeight;
-			// texPos = texPos + step;
+			int texy = (int)data->tex->wall_no->tex_height / lineHeight;
+			texPos = texPos + step;
 			
 			// // printf("tex x%d , texy %d\n", texX, texy);
 			// if (data->ray.side == 0)
