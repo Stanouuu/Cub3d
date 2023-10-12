@@ -6,7 +6,7 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:27:48 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/11 18:08:15 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:29:47 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,10 @@ void init_tex(t_data *data)
 
 void raycaster(t_data *data)
 {
-	data->player.dirX = -1.0;
-	data->player.dirY = 0.0;
 
-	data->player.planeX = 0.0;
-	data->player.planeY = 0.66;
-
-	for (int x = 0; x < data->map->map_width; x++)
+	for (int x = 0; x < WIDTH; x++)
 	{
-		data->ray.camerax = (2 * x)/(float)data->map->map_width - 1;
+		data->ray.camerax = (2 * x)/(float)WIDTH - 1;
 		data->ray.rayDirX = data->player.dirX + data->player.planeX * data->ray.camerax;
 		data->ray.rayDirY = data->player.dirY + data->player.planeY * data->ray.camerax;
 		data->ray.mapx = (int)data->player.x;
@@ -104,8 +99,8 @@ void raycaster(t_data *data)
 				data->ray.mapy = data->ray.mapy + data->ray.stepY;
 				data->ray.side = 1;
 			}
-			printf(" mapx %d   map y %d  delta x %f    deltay %f     sideDistX %f    sideDistY %f   side %d hit %d\n",data->ray.mapx , data->ray.mapy ,data->ray.deltadistX, data->ray.deltadistY, data->ray.sideDistX , data->ray.sideDistY, data->ray.side , data->ray.hit);
-			printf("map [x][y] %d\n", data->map->map[data->ray.mapx][data->ray.mapy]);
+			// printf(" mapx %d   map y %d  delta x %f    deltay %f     sideDistX %f    sideDistY %f   side %d hit %d\n",data->ray.mapx , data->ray.mapy ,data->ray.deltadistX, data->ray.deltadistY, data->ray.sideDistX , data->ray.sideDistY, data->ray.side , data->ray.hit);
+			// printf("map [x][y] %d\n", data->map->map[data->ray.mapx][data->ray.mapy]);
 			if (data->map->map[data->ray.mapx][data->ray.mapy] > 0)
 				data->ray.hit = 1;
 		}
@@ -115,14 +110,14 @@ void raycaster(t_data *data)
 			data->ray.perpWallDist = (data->ray.sideDistY - data->ray.deltadistY);
 
 		
-		int lineHeight = (int) data->map->map_lenght / data->ray.perpWallDist;
+		int lineHeight = (int) LENGTH / data->ray.perpWallDist;
 
-		int drawstart = -lineHeight / 2 + data->map->map_lenght / 2;
+		int drawstart = -lineHeight / 2 + LENGTH / 2;
 		if (drawstart < 0)
 			drawstart = 0;
-		int drawend = lineHeight / 2 + data->map->map_lenght / 2;
-		if (drawend >= data->map->map_lenght)
-			drawend = data->map->map_lenght - 1;
+		int drawend = lineHeight / 2 + LENGTH / 2;
+		if (drawend >= LENGTH)
+			drawend = LENGTH - 1;
 
 		float wallX;
 	
@@ -131,7 +126,7 @@ void raycaster(t_data *data)
 		else
 			wallX = data->player.x + data->ray.rayDirX;
 		wallX = wallX - (int)wallX;
-		printf("wall x : %f\n", wallX);
+		// printf("wall x : %f\n", wallX);
 		int texX = (int)(wallX * (float) 64.0);
 		if (data->ray.side == 0 && data->ray.rayDirX > 0)
 			texX = 64.0 - texX - 1;
@@ -139,22 +134,21 @@ void raycaster(t_data *data)
 			texX = 64.0 - texX - 1;	
 		
 		// float step = 1.0 * data->tex->wall_no->tex_height / data->tex->wall_no->tex_width;
-		// float texPos = (drawstart - data->map->map_lenght / 2 + lineHeight / 2) * step;
-		
+		// float texPos = (drawstart - LENGTH / 2 + lineHeight / 2) * step;
 
-		// for (int z = drawstart; z < drawend; z++)
-		// {
-		// 	int texY = (int)texPos & (data->tex->wall_no->tex_height - 1);
-		// 	texPos = texPos + step;
-		// }
 		int d = 0;
-		while (d < data->map->map_lenght)
+		while (d < LENGTH)
 		{
-			printf()
 			if (d <= drawstart)
-				img_pix_put(data->tex->wall_no->mlx_img, x, d, data->map->floor_color);
+				img_pix_put(&data->img, x, d, data->map->floor_color);
 			if (d >= drawend)
-				img_pix_put(data->tex->wall_no->mlx_img, x, d, data->map->floor_color);
+				img_pix_put(&data->img, x, d, data->map->ceiling_color);
+			// int texy = (int)data->tex->wall_no->tex_height / lineHeight;
+			// texPos = texPos + step;
+			
+			// // printf("tex x%d , texy %d\n", texX, texy);
+			// if (data->ray.side == 0)
+			// 	img_pix_put(&data->img, x , d, (int)data->tex->wall_no->addr[data->tex->wall_no->tex_height * texX + texy]);
 			d++;
 		}
 

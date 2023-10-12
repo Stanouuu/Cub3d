@@ -6,7 +6,7 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:09:47 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/11 15:26:47 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:24:34 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 #include "../source/gnl/get_next_line.h"
 #include "libft.h"
 #include <errno.h>
+
+# define WIDTH 500
+# define LENGTH 500
 
 typedef struct s_imge
 {

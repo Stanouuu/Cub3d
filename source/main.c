@@ -6,7 +6,7 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:51:53 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/11 16:07:23 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:36:20 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ int	main(int argc, char **argv)
 			i++;
 		}
 	}
-	printf("\n%s\n",data.map->north);
-	printf("\n%s\n",data.map->north);
-	printf("\n%s\n",data.map->north);
+
 	init_tex(&data);
-	printf("%d\n", data.map->map_width);
-	printf("%d\n", data.map->map_lenght);
-	printf("sucess 5\n");
+	data.player.dirX = -1.0;
+	data.player.dirY = 0.0;
+
+	data.player.planeX = 0.0;
+	data.player.planeY = 0.66;
 	
 	// initialize(&data);
 	// data.map = open("map", O_RDONLY);
