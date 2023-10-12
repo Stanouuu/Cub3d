@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:09:47 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/09 15:38:58 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:24:34 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,26 @@
 #include <math.h>
 #include <X11/Xlib.h>
 # include "mlx_int.h"
+#include <stdlib.h>
 # include "mlx.h"
 #include "../source/gnl/get_next_line.h"
 #include "libft.h"
 #include <errno.h>
+
+# define WIDTH 500
+# define LENGTH 500
 
 typedef struct s_imge
 {
 	void	*mlx_img;
 	char	*addr;
 	int		bpp;
+	int		*tex;
 	int		line_len;
+	int 	tex_to_open;
 	int		endian;
+	int		tex_width;
+	int		tex_height;
 }	t_imge;
 
 /* map */
@@ -45,6 +53,14 @@ typedef struct s_map
 	int map_lenght;
 } t_map;
 
+typedef struct s_tex
+{
+	t_imge *wall_no;
+	t_imge *wall_so;
+	t_imge *wall_we;
+	t_imge *wall_ea;
+} t_tex;
+
 /* for you change it as you please */
 
 typedef struct s_player
@@ -53,12 +69,31 @@ typedef struct s_player
 	float	x;
 	float	y;
 	float	a;
-	float	eyex;
-	float	eyey;
+	float	dirX;
+	float	dirY;
+	float	planeX;
+	float	planeY;
 	float	ray_angle;
 	float	distance_to_wall;
-
 } t_player;
+
+typedef struct s_ray
+{
+	float camerax;
+	float rayDirX;
+	float rayDirY;
+	int mapx;
+	int mapy;
+	float sideDistX;
+	float sideDistY;
+	float deltadistX;
+	float deltadistY;
+	float perpWallDist;
+	int		stepX;
+	int		stepY;
+	int hit ;
+	int side;
+} t_ray;
 
 typedef struct s_data
 {
@@ -66,6 +101,8 @@ typedef struct s_data
 	void		*win_ptr;
 	char		 **maptmp;
 	t_player player;
+	t_tex 		*tex;
+	t_ray		ray;
 	t_imge		img;
 	t_map		*map;
 }	t_data;
@@ -73,6 +110,7 @@ typedef struct s_data
 void	ft_error(t_map *map, t_data *data);
 void	ft_exit(t_data *data);
 void	free_mat(void **tab, int l);
+void init_tex(t_data *data);
 void	ft_exit_map(t_map *map);
 
 # include "mlx_basics.h"

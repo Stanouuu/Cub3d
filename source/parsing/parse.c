@@ -33,5 +33,6 @@ t_map	*parse_central(char **argv, int argc, t_data *data)
 	if (map_name == NULL)
 		return (ft_error(NULL, data), NULL);
 	data->map = info_extract(map_name, data);
+	printf("d :        %d\n", data->map->map_width);
 	return (data->map);
 }

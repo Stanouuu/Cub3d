@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:51:53 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/09 15:35:34 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:36:20 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,15 @@ int	main(int argc, char **argv)
 	int j = 0;
 	int i = 0;
 
-	// if (!(argc == 2) || argv_check(argv[1]) != 0)
-	// {
-	// 	write(0, "Error\n", 6);
-	// 	return (1);
-	// }
 	data.map = NULL;
 	if ((argc && !argv) || init_mlx(&data) > 0 || !parse_central(argv, argc, &data))
 		return (2);
 	if (data.map)
 	{
-		// printf("north : %s\n", data.map->north);
-		// printf("east  : %s\n", data.map->east);
-		// printf("west  : %s\n", data.map->west);
-		// printf("south : %s\n", data.map->south);
+		printf("north : %s\n", data.map->north);
+		printf("east  : %s\n", data.map->east);
+		printf("west  : %s\n", data.map->west);
+		printf("south : %s\n", data.map->south);
 		printf("fcolor: %d\n", data.map->floor_color);
 		printf("ccolor: %d\n", data.map->ceiling_color);
 		while (data.map->map_lenght != i)
@@ -46,7 +41,14 @@ int	main(int argc, char **argv)
 			i++;
 		}
 	}
-	printf("sucess 5\n");
+
+	init_tex(&data);
+	data.player.dirX = -1.0;
+	data.player.dirY = 0.0;
+
+	data.player.planeX = 0.0;
+	data.player.planeY = 0.66;
+	
 	// initialize(&data);
 	// data.map = open("map", O_RDONLY);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_input, &data);

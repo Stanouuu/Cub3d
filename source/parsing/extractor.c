@@ -3,59 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   extractor.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:18:54 by stan              #+#    #+#             */
-/*   Updated: 2023/10/10 14:42:18 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:16:06 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"	
 
-char	*reformat(char *str)
+char    *reformat(char *str)
 {
-	int		i;
-	char	*res;
+    char    *res;
+    int j;
 
-	i = 0;
-	res = malloc(sizeof(char) * ft_strlen(str));
-	if (!res)
-		return (NULL);
-	while (str[i + 1])
-	{
-		res[i] = str[i];
-		i++;
-	}
-	return (res);
+    j = 0;
+    while (!(str[j] == ' ' || (str[j] <= 13 && str[j] >= 9)))
+        j++;
+    // printf("%d\n", j);
+    res = malloc(sizeof(char) * (j + 1));
+    ft_strlcpy(res, str, j + 1);
+	// printf("res: %s | str %s | %d\n", res, str +1 , j);
+    return (res);
 }
 
-char	*find_blank_dir(char **file, char *dir, int s)
+char    *find_blank_dir(char **file, char *dir, int s)
 {
-	int		i;
-	int		j;
+    int        i;
+    int        j;
 
-	i = 0;
-	j = 0;
-	while (file[i] && ft_strncmp(file[i], dir, s) != 0)
-	{
-		if (ft_isalpha(*(file[i])) == 1)
-			j++;
-		if (check_number(file[i++]) == 1)
-			return (NULL);
-	}
-	if (correct_order(dir, j) < 0)
-		return (NULL);
-	if (s == 2)
-		return (file[i] + 2);
-	if (!file[i])
-		return (NULL);
-	while (file[i][j] != '.' && file[i][j + 1] != '/')
-	{
-		if (!file[i][j])
-			return (NULL);
-		j++;
-	}
-	return (reformat(file[i] + (j - 1)));
+    i = 0;
+    j = 0;
+    while (file[i] && ft_strncmp(file[i], dir, s) != 0)
+    {
+        if (ft_isalpha(*(file[i])) == 1)
+            j++;
+        if (check_number(file[i++]) == 1)
+            return (NULL);
+    }
+    if (correct_order(dir, j) < 0)
+        return (NULL);
+    if (s == 2)
+        return (file[i] + 2);
+    if (!file[i])
+        return (NULL);
+    while (file[i][j] != '.' && file[i][j + 1] != '/')
+    {
+        if (!file[i][j])
+            return (NULL);
+        j++;
+    }
+	// printf("file i: %s\n", file[i] + 3);
+    return (reformat((file[i]) + 4));
 }
 
 int	str_to_hex(char *str)
@@ -92,6 +91,7 @@ int	extract_first_half(char **file, t_map *map)
 	map->north = find_blank_dir(file, "NO ", 3);
 	if (!map->north)
 		return (-2);
+	printf("NORTH: %s\n", map->north);
 	map->south = find_blank_dir(file, "SO ", 3);
 	if (!map->south)
 		return (-3);

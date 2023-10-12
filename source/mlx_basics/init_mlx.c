@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:15:29 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/02 17:10:13 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/12 13:33:18 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int init_mlx(t_data *data)
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
 		return (1);
-	data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, "FDF");
+	data->win_ptr = mlx_new_window(data->mlx_ptr, WIDTH, LENGTH, "FDF");
 	if (data->win_ptr == NULL)
 	{
 		free(data->mlx_ptr);
