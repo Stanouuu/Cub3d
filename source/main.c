@@ -42,7 +42,7 @@ int	main(int argc, char **argv)
 		}
 	}
 
-	init_tex(&data);
+	// init_tex(&data);
 	data.player.dirX = -1.0;
 	data.player.dirY = 0.0;
 
