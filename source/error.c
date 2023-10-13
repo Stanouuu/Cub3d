@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:32:59 by stan              #+#    #+#             */
-/*   Updated: 2023/10/12 17:53:23 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:31:34 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,53 @@ void	ft_exit_map(t_map *map)
 	free(map);
 }
 
+void	ft_exit_tex(t_data *data)
+{
+	if (data->tex->wall_no)
+	{
+		// if (data->tex->wall_no->mlx_img)
+		// {
+		// 	mlx_destroy_image(data->mlx_ptr, data->tex->wall_no->mlx_img);
+		// 	data->tex->wall_no->mlx_img = NULL;
+		// }
+		free(data->tex->wall_no);
+	}
+	if (data->tex->wall_so)
+	{
+		// if (data->tex->wall_so->mlx_img)
+		// {
+		// 	mlx_destroy_image(data->mlx_ptr, data->tex->wall_so->mlx_img);
+		// 	data->tex->wall_so->mlx_img = NULL;
+		// }
+		free(data->tex->wall_so);
+	}
+	if (data->tex->wall_we)
+	{
+		// if (data->tex->wall_we->mlx_img)
+		// {
+		// 	mlx_destroy_image(data->mlx_ptr, data->tex->wall_we->mlx_img);
+		// 	data->tex->wall_we->mlx_img = NULL;
+		// }
+		free(data->tex->wall_we);
+	}
+	if (data->tex->wall_ea)
+	{
+		// if (data->tex->wall_ea->mlx_img)
+		// {
+		// 	mlx_destroy_image(data->mlx_ptr, data->tex->wall_ea->mlx_img);
+		// 	data->tex->wall_ea->mlx_img = NULL;
+		// }
+		free(data->tex->wall_ea);
+	}
+	free(data->tex);
+}
+
 void	ft_exit_data(t_data *data)
 {
-	if (data->maptmp)
-		free_mat((void **)data->maptmp, -1);
 	if (data->map)
 		ft_exit_map(data->map);
+	if (data->tex)
+		ft_exit_tex(data);
 }
 
 void ft_exit(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:09:47 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/12 17:26:16 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:03:07 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 #include "libft.h"
 #include <errno.h>
 
-# define WIDTH 500
-# define LENGTH 500
+# define WIDTH 1500
+# define LENGTH 900
 
 typedef struct s_imge
 {
@@ -99,7 +99,6 @@ typedef struct s_data
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	char		 **maptmp;
 	t_player player;
 	t_tex 		*tex;
 	t_ray		ray;

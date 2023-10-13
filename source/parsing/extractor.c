@@ -6,55 +6,52 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:18:54 by stan              #+#    #+#             */
-/*   Updated: 2023/10/12 17:49:12 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/13 15:16:45 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"	
 
-char    *reformat(char *str)
+char	*reformat(char *str)
 {
-    char    *res;
-    int j;
+	char	*res;
+	int		j;
 
-    j = 0;
-    while (!(str[j] == ' ' || (str[j] <= 13 && str[j] >= 9)))
-        j++;
-    // printf("%d\n", j);
-    res = malloc(sizeof(char) * (j + 1));
-    ft_strlcpy(res, str, j + 1);
-	// printf("res: %s | str %s | %d\n", res, str +1 , j);
-    return (res);
+	j = 0;
+	while (!(str[j] == ' ' || (str[j] <= 13 && str[j] >= 9)))
+		j++;
+	res = malloc(sizeof(char) * (j + 1));
+	ft_strlcpy(res, str, j + 1);
+	return (res);
 }
 
-char    *find_blank_dir(char **file, char *dir, int s)
+char	*find_blank_dir(char **file, char *dir, int s)
 {
-    int        i;
-    int        j;
+	int	i;
+	int	j;
 
-    i = 0;
-    j = 0;
-    while (file[i] && ft_strncmp(file[i], dir, s) != 0)
-    {
-        if (ft_isalpha(*(file[i])) == 1)
-            j++;
-        if (check_number(file[i++]) == 1)
-            return (NULL);
-    }
-    if (correct_order(dir, j) < 0)
-        return (NULL);
-    if (s == 2)
-        return (file[i] + 2);
-    if (!file[i])
-        return (NULL);
-    while (file[i][j] != '.' && file[i][j + 1] != '/')
-    {
-        if (!file[i][j])
-            return (NULL);
-        j++;
-    }
-	// printf("file i: %s\n", file[i] + 3);
-    return (reformat((file[i]) + 4));
+	i = 0;
+	j = 0;
+	while (file[i] && ft_strncmp(file[i], dir, s) != 0)
+	{
+		if (ft_isalpha(*(file[i])) == 1)
+			j++;
+		if (check_number(file[i++]) == 1)
+			return (NULL);
+	}
+	if (correct_order(dir, j) < 0)
+		return (NULL);
+	if (s == 2)
+		return (file[i] + 2);
+	if (!file[i])
+		return (NULL);
+	while (file[i][j] != '.' && file[i][j + 1] != '/')
+	{
+		if (!file[i][j])
+			return (NULL);
+		j++;
+	}
+	return (reformat((file[i]) + 3));
 }
 
 int	str_to_hex(char *str)
@@ -115,27 +112,25 @@ t_map	*info_extract(char *map_name, t_data *data)
 	char	**file;
 	t_map	*map;
 
-	write(1, "sucess 1.2.1\n", 13);
 	file = extract_file(map_name);
 	if (!file)
 		return (ft_error(NULL, data, "error extracting file"), NULL);
 	map = malloc(sizeof(t_map));
 	if (!map)
 		return (ft_error(NULL, data, NULL), free_mat((void **)file, -1), NULL);
-	write(1, "sucess 1.2.2\n", 13);
 	map->east = NULL;
 	map->west = NULL;
 	map->south = NULL;
 	map->north = NULL;
 	map->map = NULL;
 	if (extract_first_half(file, map) < 0)
-		return (ft_error(map, data, "incorrect information"), free_mat((void **)file, -1), NULL);
-	write(1, "sucess 1.2.3\n", 13);
+		return (ft_error(map, data, "incorrect information"),
+			free_mat((void **)file, -1), NULL);
 	if (extract_second_half(file, map, data) < 0 || map_check(map) < 0)
 	{
-		return (ft_error(map, data, "incorrect map"), free_mat((void **)file, -1), NULL);
+		ft_error(map, data, "incorrect map");
+		return (free_mat((void **)file, -1), NULL);
 	}
-	write(1, "sucess 1.2.4\n", 13);
 	free_mat((void **)file, -1);
 	return (map);
 }
