@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:09:47 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/12 15:24:34 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:26:16 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ typedef struct s_data
 	t_map		*map;
 }	t_data;
 
-void	ft_error(t_map *map, t_data *data);
+void	ft_error(t_map *map, t_data *data, char *str);
 void	ft_exit(t_data *data);
 void	free_mat(void **tab, int l);
 void init_tex(t_data *data);
