@@ -43,9 +43,7 @@ int	main(int argc, char **argv)
 			i++;
 		}
 	}
-
-	init_tex(&data);
-	write(1, "sucess 3\n", 9);
+	// init_tex(&data);
 	data.player.dirX = -1.0;
 	data.player.dirY = 0.0;
 
