@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extractor.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:18:54 by stan              #+#    #+#             */
-/*   Updated: 2023/10/11 16:16:06 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:49:12 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,23 +115,27 @@ t_map	*info_extract(char *map_name, t_data *data)
 	char	**file;
 	t_map	*map;
 
+	write(1, "sucess 1.2.1\n", 13);
 	file = extract_file(map_name);
 	if (!file)
-		return (ft_error(NULL, NULL), NULL);
+		return (ft_error(NULL, data, "error extracting file"), NULL);
 	map = malloc(sizeof(t_map));
 	if (!map)
-		return (ft_error(NULL, data), free_mat((void **)file, -1), NULL);
+		return (ft_error(NULL, data, NULL), free_mat((void **)file, -1), NULL);
+	write(1, "sucess 1.2.2\n", 13);
 	map->east = NULL;
 	map->west = NULL;
 	map->south = NULL;
 	map->north = NULL;
 	map->map = NULL;
 	if (extract_first_half(file, map) < 0)
-		return (ft_error(map, data), free_mat((void **)file, -1), NULL);
+		return (ft_error(map, data, "incorrect information"), free_mat((void **)file, -1), NULL);
+	write(1, "sucess 1.2.3\n", 13);
 	if (extract_second_half(file, map, data) < 0 || map_check(map) < 0)
 	{
-		return (ft_error(map, data), free_mat((void **)file, -1), NULL);
+		return (ft_error(map, data, "incorrect map"), free_mat((void **)file, -1), NULL);
 	}
+	write(1, "sucess 1.2.4\n", 13);
 	free_mat((void **)file, -1);
 	return (map);
 }

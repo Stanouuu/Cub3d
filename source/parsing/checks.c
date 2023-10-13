@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 14:32:26 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/09 11:10:25 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:16:42 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,20 @@ int	nbr_lines(char *map_name)
 	char	*str;
 
 	count = 0;
+	write(1, "sucess 1.2.1.1.1\n", 17);
 	fd = open(map_name, O_RDONLY);
 	if (fd == -1)
 		return (-1);
+	write(1, "sucess 1.2.1.1.2\n", 17);
 	str = get_next_line(fd);
+	write(1, "sucess 1.2.1.1.3\n", 17);
 	while (str)
 	{
 		free(str);
 		str = get_next_line(fd);
 		count++;
 	}
+	write(1, "sucess 1.2.1.1.4\n", 17);
 	close(fd);
 	return (count);
 }

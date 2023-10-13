@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:51:53 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/12 16:36:20 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/13 13:27:06 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ int	main(int argc, char **argv)
 	int i = 0;
 
 	data.map = NULL;
+	write(1, "sucess 1\n", 9);
 	if ((argc && !argv) || init_mlx(&data) > 0 || !parse_central(argv, argc, &data))
 		return (2);
+	write(1, "sucess 2\n", 9);
 	if (data.map)
 	{
 		printf("north : %s\n", data.map->north);
@@ -41,7 +43,6 @@ int	main(int argc, char **argv)
 			i++;
 		}
 	}
-
 	// init_tex(&data);
 	data.player.dirX = -1.0;
 	data.player.dirY = 0.0;
