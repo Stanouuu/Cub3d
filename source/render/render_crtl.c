@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_crtl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:27:48 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/13 16:58:06 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/16 18:18:16 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,22 @@ void init_tex(t_data *data)
 	load_east(data);
 }
 
+int *load_good_tex(t_data *data)
+{
+	if (data->ray.side == 1 && data->ray.rayDirY <= 0)
+		return (int *)data->tex->wall_so->addr;
+	if (data->ray.side == 1 && data->ray.rayDirY > 0)
+		return (int *)data->tex->wall_no->addr;
+	if (data->ray.side == 0 && data->ray.rayDirX <= 0)
+		return (int *)data->tex->wall_ea->addr;
+	else
+		return (int *)data->tex->wall_we->addr;
+}
+
 
 void raycaster(t_data *data)
 {
 
-	// printf("%f   %f\n",data->player->a, data->player.y);
 	for (int x = 0; x < WIDTH; x++)
 	{
 		data->ray.camerax = x / (float)WIDTH * 2 - 1;
@@ -114,7 +125,7 @@ void raycaster(t_data *data)
 		else
 			data->ray.perpWallDist = (data->ray.sideDistY - data->ray.deltadistY);
 
-		int lineHeight = (int) LENGTH / data->ray.perpWallDist;
+		int lineHeight = LENGTH / data->ray.perpWallDist;
 
 		int drawstart = -lineHeight / 2 + LENGTH / 2;
 		if (drawstart < 0)
@@ -124,34 +135,31 @@ void raycaster(t_data *data)
 			drawend = LENGTH - 1;
 
 		float wallX;
-	
-		if (data->ray.side == 0)
-			wallX = data->player.y + data->ray.rayDirY;
+		// printf("%d side, ray dir x : %f, ray dir y  : %f\n", data->ray.side, data->ray.rayDirX, data->ray.rayDirY);
+		if (data->ray.side == 1)
+			wallX = data->player.x + data->ray.perpWallDist * data->ray.rayDirX;
 		else
-			wallX = data->player.x + data->ray.rayDirX;
-		wallX = wallX - (int)wallX;
+			wallX = data->player.y + data->ray.perpWallDist * data->ray.rayDirY;
+		wallX -= (int)wallX;
+		wallX = 1.0f - wallX;
+		if ((data->ray.side == 1 && ((data->ray.rayDirY) > 0)) || (data->ray.side == 0 && (data->ray.rayDirX <= 0)))
+			wallX = 1.0f - wallX;
 		int texX = (int)(wallX * (float) 64.0);
-		if (data->ray.side == 0 && data->ray.rayDirX > 0)
-			texX = 64.0 - texX - 1;
-		if (data->ray.side == 1 && data->ray.rayDirY < 0)
-			texX = 64.0 - texX - 1;	
-		
+	
 		float step = 1.0 * data->tex->wall_no->tex_height / data->tex->wall_no->tex_width;
 		float texPos = (drawstart - LENGTH / 2 + lineHeight / 2) * step;
-
 		int d = 0;
 		while (d < LENGTH)
 		{
-			int texy = (int)data->tex->wall_no->tex_height / lineHeight;
+			int *stock_int = load_good_tex(data);
+			int texy = ((float)(d - drawstart) / (float)(drawend - drawstart)) * data->tex->wall_no->tex_height;
 			texPos = texPos + step;
-			if (d <= drawstart)
+			if (d < drawstart)
 				img_pix_put(&data->img, x, d, data->map->floor_color);
-			else if (d >= drawend)
+			else if (d > drawend)
 				img_pix_put(&data->img, x, d, data->map->ceiling_color);
 			else //(data->ray.side == 0)
-				img_pix_put(&data->img, x , d, (int)data->tex->wall_no->addr[data->tex->wall_no->tex_height * texX + texy]);
-			
-			// // printf("tex x%d , texy %d\n", texX, texy);
+				img_pix_put(&data->img, x , d, stock_int[data->tex->wall_no->tex_width * texy + texX]);
 			d++;
 		}
 
