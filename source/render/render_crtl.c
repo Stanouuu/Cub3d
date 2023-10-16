@@ -6,7 +6,7 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:27:48 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/16 17:55:35 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/16 18:18:16 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,9 +154,9 @@ void raycaster(t_data *data)
 			int *stock_int = load_good_tex(data);
 			int texy = ((float)(d - drawstart) / (float)(drawend - drawstart)) * data->tex->wall_no->tex_height;
 			texPos = texPos + step;
-			if (d <= drawstart)
+			if (d < drawstart)
 				img_pix_put(&data->img, x, d, data->map->floor_color);
-			else if (d >= drawend)
+			else if (d > drawend)
 				img_pix_put(&data->img, x, d, data->map->ceiling_color);
 			else //(data->ray.side == 0)
 				img_pix_put(&data->img, x , d, stock_int[data->tex->wall_no->tex_width * texy + texX]);
