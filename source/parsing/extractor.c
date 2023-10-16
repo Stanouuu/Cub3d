@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:18:54 by stan              #+#    #+#             */
-/*   Updated: 2023/10/13 15:16:45 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/16 18:34:23 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	*reformat(char *str)
 	while (!(str[j] == ' ' || (str[j] <= 13 && str[j] >= 9)))
 		j++;
 	res = malloc(sizeof(char) * (j + 1));
+	if (!res)
+		return (NULL);
 	ft_strlcpy(res, str, j + 1);
 	return (res);
 }
@@ -43,11 +45,11 @@ char	*find_blank_dir(char **file, char *dir, int s)
 		return (NULL);
 	if (s == 2)
 		return (file[i] + 2);
-	if (!file[i])
+	if (!file[i] || !file[i][j])
 		return (NULL);
 	while (file[i][j] != '.' && file[i][j + 1] != '/')
 	{
-		if (!file[i][j])
+		if (!file[i][j + 1])
 			return (NULL);
 		j++;
 	}
@@ -88,7 +90,6 @@ int	extract_first_half(char **file, t_map *map)
 	map->north = find_blank_dir(file, "NO ", 3);
 	if (!map->north)
 		return (-2);
-	printf("NORTH: %s\n", map->north);
 	map->south = find_blank_dir(file, "SO ", 3);
 	if (!map->south)
 		return (-3);

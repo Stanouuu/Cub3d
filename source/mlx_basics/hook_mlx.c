@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 15:31:58 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/16 11:53:45 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/16 14:22:42 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	handle_input(int keysym, t_data *data)
 {
 	float olddir = 0;
 	float oldplanex;
-	printf("%f   x :%f y :%f\n",data->player.a, data->player.x, data->player.y);
+	// printf("%f   x :%f y :%f\n",data->player.a, data->player.x, data->player.y);
 	if (keysym == XK_Escape)
 	{
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
@@ -66,7 +66,7 @@ int	handle_input(int keysym, t_data *data)
 		data->player.x -= sinf(data->player.a) * 0.1f;
 		if (data->map->map[(int)(data->player.x)][(int)(data->player.y)] == 1)
 		{
-			printf("%d\n", data->map->map[(int)(data->player.y)][(int)(data->player.x)]);
+			// printf("%d\n", data->map->map[(int)(data->player.y)][(int)(data->player.x)]);
 			data->player.y -= cosf(data->player.a) * 0.1f;
 			data->player.x += sinf(data->player.a) * 0.1f;
 		}
