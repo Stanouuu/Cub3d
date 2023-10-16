@@ -6,7 +6,7 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:09:47 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/16 17:34:13 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/16 18:52:38 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ typedef struct s_data
 void	ft_error(t_map *map, t_data *data, char *str);
 void	ft_exit(t_data *data);
 void	free_mat(void **tab, int l);
-void	init_tex(t_data *data);
+int	init_tex(t_data *data);
 void	ft_exit_map(t_map *map);
 
 # include "mlx_basics.h"

@@ -6,7 +6,7 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:27:48 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/16 18:18:16 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/16 18:55:10 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,83 @@
 //add floor ceiling
 
 
-void load_north(t_data *data)
+int load_north(t_data *data)
 {
 	data->tex->wall_no = malloc(sizeof(t_imge));
+	if (!data->tex->wall_no)
+		return (-1);
+	// printf("%p\n", data->mlx_ptr);
+	// printf("%s\n", data->map->north);
+	// printf("%d\n", data->tex->wall_no->tex_width);
+	// printf("%d\n\n", data->tex->wall_no->tex_height);
 	data->tex->wall_no->mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, data->map->north, &data->tex->wall_no->tex_width, &data->tex->wall_no->tex_height);
+	if (!data->tex->wall_no->mlx_img)
+		return (-2);
+	// printf("%d\n", data->tex->wall_no->line_len);
+	// printf("%d\n", data->tex->wall_no->bpp);
+	// printf("%p\n", data->tex->wall_no->mlx_img);
+	// printf("%d\n", data->tex->wall_no->endian);
+	// exit(0);
 	// exit(0);
 	data->tex->wall_no->addr = mlx_get_data_addr(data->tex->wall_no->mlx_img, &data->tex->wall_no->bpp , &data->tex->wall_no->line_len, &data->tex->wall_no->endian);
+	return (0);
 }
 
-void load_south(t_data *data)
+int load_south(t_data *data)
 {
 	data->tex->wall_so = malloc(sizeof(t_imge));
+	if (!data->tex->wall_so)
+		return (-1);
 	data->tex->wall_so->mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, data->map->south, &data->tex->wall_so->tex_width, &data->tex->wall_so->tex_height);
+	if (!data->tex->wall_so->mlx_img)
+		return (-2);
 	data->tex->wall_so->addr = mlx_get_data_addr(data->tex->wall_so->mlx_img, &data->tex->wall_so->bpp , &data->tex->wall_so->line_len, &data->tex->wall_so->endian);
+	return (0);
 }
 
-void load_west(t_data *data)
+int load_west(t_data *data)
 {
 	data->tex->wall_we = malloc(sizeof(t_imge));
-
+	if (!data->tex->wall_we)
+		return (-1);
 	data->tex->wall_we->mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, data->map->west, &data->tex->wall_we->tex_width, &data->tex->wall_we->tex_height);
+	if (!data->tex->wall_we->mlx_img)
+		return (-2);
 	data->tex->wall_we->addr = mlx_get_data_addr(data->tex->wall_we->mlx_img, &data->tex->wall_we->bpp , &data->tex->wall_we->line_len, &data->tex->wall_we->endian);
+	return (0);
 }
 
-void load_east(t_data *data)
+int load_east(t_data *data)
 {
 	data->tex->wall_ea = malloc(sizeof(t_imge));
+	if (!data->tex->wall_ea)
+		return (-1);
 	data->tex->wall_ea->mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, data->map->east, &data->tex->wall_ea->tex_width, &data->tex->wall_ea->tex_height);
+	if (!data->tex->wall_ea->mlx_img)
+		return (-2);
 	data->tex->wall_ea->addr = mlx_get_data_addr(data->tex->wall_ea->mlx_img, &data->tex->wall_ea->bpp , &data->tex->wall_ea->line_len, &data->tex->wall_ea->endian);
+	return (0);
+
 }
 
-void init_tex(t_data *data)
+int init_tex(t_data *data)
 {
 	data->tex = malloc(sizeof(t_tex));
-	load_north(data);
-	load_south(data);
-	load_west(data);
-	load_east(data);
+	if (!data->tex)
+		return (-1);
+	data->tex->wall_no = NULL;
+	data->tex->wall_so = NULL;
+	data->tex->wall_we = NULL;
+	data->tex->wall_ea = NULL;
+	if (load_north(data) < 0)
+		return (-1);
+	if (load_south(data) < 0)
+		return (-2);
+	if (load_west(data))
+		return (-3);
+	if (load_east(data))
+		return (-4);
+	return (0);
 }
 
 int *load_good_tex(t_data *data)
