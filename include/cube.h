@@ -110,7 +110,7 @@ typedef struct s_data
 void	ft_error(t_map *map, t_data *data, char *str);
 void	ft_exit(t_data *data);
 void	free_mat(void **tab, int l);
-void init_tex(t_data *data);
+void	init_tex(t_data *data);
 void	ft_exit_map(t_map *map);
 
 # include "mlx_basics.h"
