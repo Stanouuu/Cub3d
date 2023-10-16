@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 15:31:58 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/13 16:01:46 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/16 11:53:45 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,29 +62,29 @@ int	handle_input(int keysym, t_data *data)
 	if (keysym == XK_d)
 	{
 		// if (data->map->map[(int)(data->player.x)][(int)(data->player.y + cosf(data->player.a) * 0.1f)] == 0)
-		if (data->map->map[(int)(data->player.x - sinf(data->player.a) * 0.1f)][(int)data->player.y] == 0 && data->map->map[(int)(data->player.x)][(int)(data->player.y - cosf(data->player.a) * 0.1f)] == 0)
+		data->player.y += cosf(data->player.a) * 0.1f;
+		data->player.x -= sinf(data->player.a) * 0.1f;
+		if (data->map->map[(int)(data->player.x)][(int)(data->player.y)] == 1)
 		{
-			data->player.x -= sinf(data->player.a) * 0.1f;
+			printf("%d\n", data->map->map[(int)(data->player.y)][(int)(data->player.x)]);
 			data->player.y -= cosf(data->player.a) * 0.1f;
+			data->player.x += sinf(data->player.a) * 0.1f;
 		}
-		write(1, "d", 1);
 		// data->player.y += cosf(data->player.a) * 0.1f;
 		// data->player.x += sinf(data->player.a) * 0.1f;
-		// if (data->map->map[(int)(data->player.y)][(int)(data->player.x)] == 1)
-		// {
-		// 	write(1, "hell", 4);
-		// 	data->player.y -= cosf(data->player.a) * 0.1f;
-		// 	data->player.x -= sinf(data->player.a) * 0.1f;
-		// }
 	}
 	if (keysym == XK_a)
 	{
-		if (data->map->map[(int)(data->player.x + sinf(data->player.a) * 0.1f)][(int)data->player.y] == 0 && data->map->map[(int)(data->player.x)][(int)(data->player.y + cosf(data->player.a) * 0.1f)] == 0)
+		// if (data->map->map[(int)(data->player.x + sinf(data->player.a) * 0.1f)][(int)data->player.y] == 0 && data->map->map[(int)(data->player.x)][(int)(data->player.y + cosf(data->player.a) * 0.1f)] == 0)
+		// {
+		// }
+		data->player.y -= cosf(data->player.a) * 0.1f;
+		data->player.x += sinf(data->player.a) * 0.1f;
+		if (data->map->map[(int)(data->player.x)][(int)(data->player.y)] == 1)
 		{
-			data->player.x += sinf(data->player.a) * 0.1f;
 			data->player.y += cosf(data->player.a) * 0.1f;
+			data->player.x -= sinf(data->player.a) * 0.1f;
 		}
-
 		// printf()
 		// if (data->map->map[(int)(data->player.x)][(int)(data->player.y - cosf(data->player.a) * 0.1f)] == 0)
 
