@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:09:47 by sbarrage          #+#    #+#             */
 /*   Updated: 2023/10/16 18:52:38 by sbarrage         ###   ########.fr       */
@@ -99,7 +99,8 @@ typedef struct s_data
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	t_player	player;
+	int			*stock_int;
+	t_player player;
 	t_tex 		*tex;
 	t_ray		ray;
 	t_imge		img;
