@@ -6,7 +6,7 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:27:48 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/16 18:18:16 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/16 18:50:04 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ void raycaster(t_data *data)
 			data->ray.stepY = 1;
 			data->ray.sideDistY = (data->ray.mapy + 1.0 - data->player.y) * data->ray.deltadistY;
 		}
-		
 		while (data->ray.hit == 0)
 		{
 			if (data->ray.sideDistX < data->ray.sideDistY)
