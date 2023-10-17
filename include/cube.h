@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:09:47 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/17 12:33:05 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/17 12:44:53 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ typedef struct s_map
 
 typedef struct s_tex
 {
-	t_imge *wall_no;
-	t_imge *wall_so;
-	t_imge *wall_we;
-	t_imge *wall_ea;
+	t_imge wall_no;
+	t_imge wall_so;
+	t_imge wall_we;
+	t_imge wall_ea;
 } t_tex;
 
 /* for you change it as you please */

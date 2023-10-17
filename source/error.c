@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:32:59 by stan              #+#    #+#             */
-/*   Updated: 2023/10/17 12:33:10 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/17 13:12:05 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,43 +55,10 @@ void	ft_exit_map(t_map *map)
 
 void	ft_exit_tex(t_data *data)
 {
-	if (data->tex->wall_no)
-	{
-		// if (data->tex->wall_no->mlx_img)
-		// {
-		// 	mlx_destroy_image(data->mlx_ptr, data->tex->wall_no.mlx_img);
-		// 	data->tex->wall_no.mlx_img = NULL;
-		// }
-		free(data->tex->wall_no);
-	}
-	if (data->tex->wall_so)
-	{
-		// if (data->tex->wall_so->mlx_img)
-		// {
-		// 	mlx_destroy_image(data->mlx_ptr, data->tex->wall_so->mlx_img);
-		// 	data->tex->wall_so->mlx_img = NULL;
-		// }
-		free(data->tex->wall_so);
-	}
-	if (data->tex->wall_we)
-	{
-		// if (data->tex->wall_we->mlx_img)
-		// {
-		// 	mlx_destroy_image(data->mlx_ptr, data->tex->wall_we->mlx_img);
-		// 	data->tex->wall_we->mlx_img = NULL;
-		// }
-		free(data->tex->wall_we);
-	}
-	if (data->tex->wall_ea)
-	{
-		// if (data->tex->wall_ea->mlx_img)
-		// {
-			// mlx_destroy_image(data->mlx_ptr, data->tex->wall_ea->mlx_img);
-			// data->tex->wall_ea->mlx_img = NULL;
-		// }
-		free(data->tex->wall_ea);
-	}
-	free(data->tex);
+	mlx_destroy_image(data->mlx_ptr, data->tex->wall_no.mlx_img);
+	mlx_destroy_image(data->mlx_ptr, data->tex->wall_so.mlx_img);
+	mlx_destroy_image(data->mlx_ptr, data->tex->wall_we.mlx_img);
+	mlx_destroy_image(data->mlx_ptr, data->tex->wall_ea.mlx_img);
 }
 
 void	ft_exit_data(t_data *data)
@@ -99,14 +66,17 @@ void	ft_exit_data(t_data *data)
 	if (data->map)
 		ft_exit_map(data->map);
 	if (data->tex)
+	{
 		ft_exit_tex(data);
+		free(data->tex);
+	}
 }
 
 void ft_exit(t_data *data)
 {
-	exit_mlx(data);
 	if (data)
 		ft_exit_data(data);
+	exit_mlx(data);
 }
 
 void ft_error(t_map *map, t_data *data, char *str)
