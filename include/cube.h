@@ -6,7 +6,7 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:09:47 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/17 17:11:26 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/17 17:57:14 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,11 @@ void	ft_exit(t_data *data);
 void	free_mat(void **tab, int l);
 int	init_tex(t_data *data);
 void	ft_exit_map(t_map *map);
+void	init_sidedist(t_data *data);
+void position_map(t_data *data);
+void init_ray_calc(t_data *data);
+void draw_pixel(t_data *data, int d, int x);
+int *load_good_tex(t_data *data);
 
 # include "mlx_basics.h"
 # include "render.h"

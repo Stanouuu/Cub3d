@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+         #
+#    By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/19 12:11:53 by sbarrage          #+#    #+#              #
-#    Updated: 2023/10/17 15:00:43 by sbarrage         ###   ########.fr        #
+#    Updated: 2023/10/17 17:47:55 by nklingsh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC =	mlx_basics/exit_mlx.c mlx_basics/init_mlx.c mlx_basics/hook_mlx.c\
 		gnl/get_next_line.c gnl/get_next_line_utils.c\
 		parsing/extractor.c parsing/parse.c parsing/tester.c parsing/checks.c\
 		parsing/extractor_2.c parsing/checks_2.c parsing/checks_3.c parsing/extractor_3.c\
-		main.c error.c\
+		render/loader.c main.c render/init_ray.c error.c\
 
 SRC_DIR = source
 
