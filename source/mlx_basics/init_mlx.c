@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:15:29 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/16 19:01:36 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/17 11:19:13 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,7 @@ void	init_img(t_data *data)
 	data->img = i;
 }
 
-// void init_player(t_data *data)
-// {
-// 	t_player p;
-
-// 	p.fov = 3.14 / 3;
-// 	p.ray_angle = (p.a - p.fov / 2.0f) + (p.x / 1000) * p.fov;
-// 	p.distance_to_wall = 0;
-// 	data->img = i;
-// }
-
-int init_mlx(t_data *data)
+int	init_mlx(t_data *data)
 {
 	data->map = NULL;
 	data->mlx_ptr = mlx_init();
@@ -44,14 +34,8 @@ int init_mlx(t_data *data)
 		return (2);
 	}
 	init_img(data);
-	// data->maptmp = ft_split("1111111111111111 1000000000000001 1000000000000001 1000000001111111 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1000000000000001 1111111111111111 ", ' ');
-	data->player.y = 8.0;
-	data->player.x = 8.0;
+	data->player.y = -1;
+	data->player.x = -1;
 	data->player.a = 0;
 	return (0);
 }
-
-// void initialize(t_data *data)
-// {
-
-// }

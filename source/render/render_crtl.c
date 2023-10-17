@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_crtl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:27:48 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/16 18:55:10 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/17 10:16:53 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ void raycaster(t_data *data)
 		data->ray.deltadistY = sqrt(1 + (data->ray.rayDirX * data->ray.rayDirX) / (data->ray.rayDirY * data->ray.rayDirY));
 		
 		data->ray.hit = 0;
-		
 		if (data->ray.rayDirX < 0)
 		{
 			data->ray.stepX = -1;
@@ -142,7 +141,6 @@ void raycaster(t_data *data)
 			data->ray.stepY = 1;
 			data->ray.sideDistY = (data->ray.mapy + 1.0 - data->player.y) * data->ray.deltadistY;
 		}
-		
 		while (data->ray.hit == 0)
 		{
 			if (data->ray.sideDistX < data->ray.sideDistY)
@@ -173,7 +171,6 @@ void raycaster(t_data *data)
 		int drawend = lineHeight / 2 + LENGTH / 2;
 		if (drawend >= LENGTH)
 			drawend = LENGTH - 1;
-
 		float wallX;
 		// printf("%d side, ray dir x : %f, ray dir y  : %f\n", data->ray.side, data->ray.rayDirX, data->ray.rayDirY);
 		if (data->ray.side == 1)
