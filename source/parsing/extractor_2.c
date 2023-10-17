@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:29:31 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/17 11:22:47 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/17 11:30:26 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,13 @@ void	player_info_extract(char direction, t_player *player, int x, int y)
 	}
 	else
 		return ;
-	player->y = y;
-	player->x = x;
+	if (player->y == -1)
+	{
+		player->y = y;
+		player->x = x;
+	}
+	else
+		player->y = -2;
 }
 
 void	fill_map_3(char *file, t_map *map, int h, t_data *data)
@@ -77,7 +82,7 @@ int	fill_map_2(t_map *map, char **file, int i, t_data *data)
 		i++;
 		h++;
 	}
-	if (data->player.y == -1)
+	if (data->player.y < 0)
 		return (-1);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:15:29 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/17 11:19:13 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/17 11:38:11 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	init_mlx(t_data *data)
 		free(data->mlx_ptr);
 		return (2);
 	}
-	init_img(data);
+	if (init_img(data) < 0)
+		return (3);
 	data->player.y = -1;
 	data->player.x = -1;
 	data->player.a = 0;
