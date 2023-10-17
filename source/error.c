@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:32:59 by stan              #+#    #+#             */
-/*   Updated: 2023/10/16 17:54:27 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/17 12:33:10 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	ft_exit_tex(t_data *data)
 	{
 		// if (data->tex->wall_no->mlx_img)
 		// {
-		// 	mlx_destroy_image(data->mlx_ptr, data->tex->wall_no->mlx_img);
-		// 	data->tex->wall_no->mlx_img = NULL;
+		// 	mlx_destroy_image(data->mlx_ptr, data->tex->wall_no.mlx_img);
+		// 	data->tex->wall_no.mlx_img = NULL;
 		// }
 		free(data->tex->wall_no);
 	}

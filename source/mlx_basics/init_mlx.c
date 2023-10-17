@@ -6,19 +6,24 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:15:29 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/17 11:38:11 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/17 11:50:36 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-void	init_img(t_data *data)
+int	init_img(t_data *data)
 {
 	t_imge	i;
 
 	i.mlx_img = mlx_new_image(data->mlx_ptr, WIDTH, LENGTH);
+	if (!i.mlx_img)
+		return (-1);
 	i.addr = mlx_get_data_addr(i.mlx_img, &i.bpp, &i.line_len, &i.endian);
+	if (!i.addr)
+		return (-2);
 	data->img = i;
+	return (1);
 }
 
 int	init_mlx(t_data *data)
