@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:27:48 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/17 15:45:51 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/17 16:10:44 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ void raycaster(t_data *data)
 		data->ray.mapx = (int)data->player.x;
 		data->ray.mapy = (int)data->player.y;
 
-		data->ray.deltadistX = sqrt(1 + (data->ray.rayDirY * data->ray.rayDirY) / (data->ray.rayDirX * data->ray.rayDirX));
-		data->ray.deltadistY = sqrt(1 + (data->ray.rayDirX * data->ray.rayDirX) / (data->ray.rayDirY * data->ray.rayDirY));
+		data->ray.deltadistX = fabsf(1.f / data->ray.rayDirX);
+		data->ray.deltadistY = fabsf(1.f / data->ray.rayDirY);
 		
 		data->ray.hit = 0;
 		if (data->ray.rayDirX < 0)
@@ -157,31 +157,19 @@ void raycaster(t_data *data)
 		int drawstart = -lineHeight / 2 + LENGTH / 2;
 		if (drawstart < 0)
 			drawstart = 0;
-		int drawend = lineHeight / 2 + LENGTH / 2;
+		int drawend = drawstart + lineHeight;
 		if (drawend >= LENGTH)
-			drawend = LENGTH - 1;
+			drawend = LENGTH;
 		float wallX;
-		// printf("%d side, ray dir x : %f, ray dir y  : %f\n", data->ray.side, data->ray.rayDirX, data->ray.rayDirY);
 		if (data->ray.side == 1)
 			wallX = data->player.x + data->ray.perpWallDist * data->ray.rayDirX;
 		else
 			wallX = data->player.y + data->ray.perpWallDist * data->ray.rayDirY;
 		wallX = wallX - floorf(wallX);
-		printf("- wallX : %f\n", wallX);
-		if ((data->ray.side == 1 && ((data->ray.rayDirY) > 0)) || (data->ray.side == 0 && (data->ray.rayDirX <= 0))) {
-			if ( wallX > 1) {
-				printf("wallX : %f\n", wallX);
-				exit(21);
-			}
+		if ((data->ray.side == 0 && data->ray.rayDirX >= 0.f) || (data->ray.side == 1 && data->ray.rayDirY < 0.f))
 			wallX = 1.0f - wallX;
-			
-		}
 
-		if (wallX < 0) {
-			printf("wallX :%f\n	", wallX);
-			exit(21);
-		}
-		int texX = (int)(wallX * (float) 64.0);
+		int texX = (int)(wallX * (float) 64.0f);
 	
 		float step = 1.0 * data->tex->wall_no.tex_height / data->tex->wall_no.tex_width;
 		float texPos = (drawstart - LENGTH / 2 + lineHeight / 2) * step;
@@ -189,41 +177,17 @@ void raycaster(t_data *data)
 		while (d < LENGTH)
 		{
 			int *stock_int = load_good_tex(data);
-			// printf("d");
-			if ((float)(drawend - drawstart) == 0)
-			{
-				printf("ici\n");
-				exit(0);
-			}
-
 
 			texPos = texPos + step;
 			int	i = 0;
 			if (d < drawstart)
 				img_pix_put(&data->img, x, d, data->map->floor_color);
-			else if (d > drawend)
+			else if (d >= drawend)
 				img_pix_put(&data->img, x, d, data->map->ceiling_color);
-			else //(data->ray.side == 0)
+			else
 			{
 				float	coef = (float)(d - (LENGTH / 2 - lineHeight / 2)) / (float)(lineHeight);
 				int texy = data->tex->wall_no.tex_height * coef;
-				// if ( data->tex->wall_no.tex_width * texy + texX < 0 && coef < 0 )
-				// {
-				// 	printf("coef\n");
-				// 	exit(0);
-				// }
-				// if ( data->tex->wall_no.tex_width * texy + texX < 0 && data->tex->wall_no.tex_height < 0 ) {
-				// 	printf("height\n");
-				// 	exit(0);
-				// }
-				// if ( data->tex->wall_no.tex_width < 0 && data->tex->wall_no.tex_width * texy + texX < 0) {
-				// 	printf("widht\n");
-				// }
-				// if ( texX < 0 && data->tex->wall_no.tex_width * texy + texX < 0) {
-				// 	printf("texX");
-				// 	exit(0);
-				// }
-				// img_pix_put(&data->img, x , d, 65000);
 				i = data->tex->wall_no.tex_width * texy + texX;
 				if (i < 0)
 				{
@@ -231,13 +195,10 @@ void raycaster(t_data *data)
 					printf ("texy : %d", texy);
 					printf ("texx : %d", texX);
 					exit(0);
-					// i *= -1;
 				}
 				img_pix_put(&data->img, x , d, stock_int[i]);
 			}
-				// img_pix_put(&data->img, x , d, stock_int[data->tex->wall_no.tex_width * texy + texX]);
-
-			d++;
+		d++;
 		}
 
 	}
