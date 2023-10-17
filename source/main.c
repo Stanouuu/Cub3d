@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:51:53 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/16 19:01:22 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/17 11:38:23 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ int	main(int argc, char **argv)
 
 	data.map = NULL;
 	data.tex = NULL;
-	write(1, "sucess 1\n", 9);
 	if ((argc && !argv) || init_mlx(&data) > 0 || !parse_central(argv, argc, &data))
 		return (2);
-	write(1, "sucess 2\n", 9);
 	if (data.map)
 	{
 		printf("north : %s\n", data.map->north);

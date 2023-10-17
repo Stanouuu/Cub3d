@@ -6,15 +6,14 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:29:31 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/16 18:58:37 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/17 11:30:26 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-int	player_info_extract(char direction, t_player *player)
+void	player_info_extract(char direction, t_player *player, int x, int y)
 {
-
 	if (direction == 'N')
 	{
 		player->dirX = 0;
@@ -35,10 +34,18 @@ int	player_info_extract(char direction, t_player *player)
 		player->dirX = 1;
 		player->dirY = 0;
 	}
-	return (1);
+	else
+		return ;
+	if (player->y == -1)
+	{
+		player->y = y;
+		player->x = x;
+	}
+	else
+		player->y = -2;
 }
 
-int	fill_map_3(char *file, t_map *map, int h, t_data *data)
+void	fill_map_3(char *file, t_map *map, int h, t_data *data)
 {
 	int	j;
 
@@ -58,12 +65,10 @@ int	fill_map_3(char *file, t_map *map, int h, t_data *data)
 			map->map[h][j++] = 1;
 		else
 		{
-			if (player_info_extract(file[j], &(data->player)) == -1)
-				return (-1);
+			player_info_extract(file[j], &(data->player), h, j);
 			map->map[h][j++] = 0;
 		}
 	}
-	return (1);
 }
 
 int	fill_map_2(t_map *map, char **file, int i, t_data *data)
@@ -73,11 +78,12 @@ int	fill_map_2(t_map *map, char **file, int i, t_data *data)
 	h = 0;
 	while (map->map_lenght > h)
 	{
-		if (fill_map_3(file[i], map, h, data) == -1)
-			return (-1);
+		fill_map_3(file[i], map, h, data);
 		i++;
 		h++;
 	}
+	if (data->player.y < 0)
+		return (-1);
 	return (1);
 }
 
@@ -115,6 +121,6 @@ int	extract_second_half(char **file, t_map *map, t_data *data)
 		s++;
 	}
 	if (fill_map(file, map, data) < 0)
-		return (free_mat((void **)map, s), -4);
+		return (-4);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_crtl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:27:48 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/16 18:55:10 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/17 11:40:10 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,9 @@ int load_north(t_data *data)
 	data->tex->wall_no = malloc(sizeof(t_imge));
 	if (!data->tex->wall_no)
 		return (-1);
-	// printf("%p\n", data->mlx_ptr);
-	// printf("%s\n", data->map->north);
-	// printf("%d\n", data->tex->wall_no->tex_width);
-	// printf("%d\n\n", data->tex->wall_no->tex_height);
 	data->tex->wall_no->mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, data->map->north, &data->tex->wall_no->tex_width, &data->tex->wall_no->tex_height);
 	if (!data->tex->wall_no->mlx_img)
 		return (-2);
-	// printf("%d\n", data->tex->wall_no->line_len);
-	// printf("%d\n", data->tex->wall_no->bpp);
-	// printf("%p\n", data->tex->wall_no->mlx_img);
-	// printf("%d\n", data->tex->wall_no->endian);
-	// exit(0);
-	// exit(0);
 	data->tex->wall_no->addr = mlx_get_data_addr(data->tex->wall_no->mlx_img, &data->tex->wall_no->bpp , &data->tex->wall_no->line_len, &data->tex->wall_no->endian);
 	return (0);
 }
@@ -70,7 +60,6 @@ int load_east(t_data *data)
 		return (-2);
 	data->tex->wall_ea->addr = mlx_get_data_addr(data->tex->wall_ea->mlx_img, &data->tex->wall_ea->bpp , &data->tex->wall_ea->line_len, &data->tex->wall_ea->endian);
 	return (0);
-
 }
 
 int init_tex(t_data *data)
@@ -116,12 +105,11 @@ void raycaster(t_data *data)
 		data->ray.rayDirY = data->player.dirY + data->player.planeY * data->ray.camerax;
 		data->ray.mapx = (int)data->player.x;
 		data->ray.mapy = (int)data->player.y;
-		
+
 		data->ray.deltadistX = sqrt(1 + (data->ray.rayDirY * data->ray.rayDirY) / (data->ray.rayDirX * data->ray.rayDirX));
 		data->ray.deltadistY = sqrt(1 + (data->ray.rayDirX * data->ray.rayDirX) / (data->ray.rayDirY * data->ray.rayDirY));
 		
 		data->ray.hit = 0;
-		
 		if (data->ray.rayDirX < 0)
 		{
 			data->ray.stepX = -1;
@@ -142,7 +130,6 @@ void raycaster(t_data *data)
 			data->ray.stepY = 1;
 			data->ray.sideDistY = (data->ray.mapy + 1.0 - data->player.y) * data->ray.deltadistY;
 		}
-		
 		while (data->ray.hit == 0)
 		{
 			if (data->ray.sideDistX < data->ray.sideDistY)
@@ -173,7 +160,6 @@ void raycaster(t_data *data)
 		int drawend = lineHeight / 2 + LENGTH / 2;
 		if (drawend >= LENGTH)
 			drawend = LENGTH - 1;
-
 		float wallX;
 		// printf("%d side, ray dir x : %f, ray dir y  : %f\n", data->ray.side, data->ray.rayDirX, data->ray.rayDirY);
 		if (data->ray.side == 1)
