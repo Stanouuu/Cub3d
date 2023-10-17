@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:51:53 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/17 11:38:23 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/17 16:29:26 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ int	main(int argc, char **argv)
 		ft_exit(&data);
 		return (3);
 	}
-	data.player.dirX = -1.0;
-	data.player.dirY = 0.0;
 
 	data.player.planeX = 0.0;
 	data.player.planeY = 0.66;
