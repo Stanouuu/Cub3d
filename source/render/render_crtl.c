@@ -6,7 +6,7 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:27:48 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/17 16:48:58 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/17 17:32:07 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,167 +139,61 @@ void position_map(t_data *data)
 		data->ray.perpWallDist = (data->ray.sideDistY - data->ray.deltadistY);
 }
 
+void init_ray_calc(t_data *data)
+{
+	data->player.lineheight = LENGTH / data->ray.perpWallDist;
+	data->player.drawstart = -data->player.lineheight / 2 + LENGTH / 2;
+	if (data->player.drawstart < 0)
+		data->player.drawstart = 0;
+	data->player.drawend = data->player.drawstart + data->player.lineheight;
+	if (data->player.drawend >= LENGTH)
+		data->player.drawend = LENGTH;
+	if (data->ray.side == 1)
+		data->player.wallx = data->player.x + data->ray.perpWallDist * data->ray.rayDirX;
+	else
+		data->player.wallx = data->player.y + data->ray.perpWallDist * data->ray.rayDirY;
+	data->player.wallx = data->player.wallx - floorf(data->player.wallx);
+	if ((data->ray.side == 0 && data->ray.rayDirX >= 0.f) || (data->ray.side == 1 && data->ray.rayDirY < 0.f))
+		data->player.wallx = 1.0f - data->player.wallx;
+	data->player.texx = (int)(data->player.wallx * (float) 64.0f);
+}
+
+void draw_pixel(t_data *data, int d, int x)
+{
+	int *stock_int = load_good_tex(data);
+	int	i = 0;
+	if (d < data->player.drawstart)
+		img_pix_put(&data->img, x, d, data->map->floor_color);
+	else if (d >= data->player.drawend)
+		img_pix_put(&data->img, x, d, data->map->ceiling_color);
+	else
+	{
+		float	coef = (float)(d - (LENGTH / 2 - data->player.lineheight / 2)) / (float)(data->player.lineheight);
+		int texy = data->tex->wall_no.tex_height * coef;
+		i = data->tex->wall_no.tex_width * texy + data->player.texx;
+		img_pix_put(&data->img, x , d, stock_int[i]);
+	}		
+}
 void raycaster(t_data *data)
 {
+	int x;
 
-	for (int x = 0; x < WIDTH; x++)
+	x = 0;
+	while (x < WIDTH)
 	{
 		init_ray(data, x);
 		init_sideDist(data);
 		position_map(data);
-		int lineHeight = LENGTH / data->ray.perpWallDist;
-
-		int drawstart = -lineHeight / 2 + LENGTH / 2;
-		if (drawstart < 0)
-			drawstart = 0;
-		int drawend = drawstart + lineHeight;
-		if (drawend >= LENGTH)
-			drawend = LENGTH;
-		float wallX;
-		if (data->ray.side == 1)
-			wallX = data->player.x + data->ray.perpWallDist * data->ray.rayDirX;
-		else
-			wallX = data->player.y + data->ray.perpWallDist * data->ray.rayDirY;
-		wallX = wallX - floorf(wallX);
-		if ((data->ray.side == 0 && data->ray.rayDirX >= 0.f) || (data->ray.side == 1 && data->ray.rayDirY < 0.f))
-			wallX = 1.0f - wallX;
-
-		int texX = (int)(wallX * (float) 64.0f);
-	
-		float step = 1.0 * data->tex->wall_no.tex_height / data->tex->wall_no.tex_width;
-		float texPos = (drawstart - LENGTH / 2 + lineHeight / 2) * step;
+		init_ray_calc(data);
 		int d = 0;
 		while (d < LENGTH)
 		{
-			int *stock_int = load_good_tex(data);
-
-			texPos = texPos + step;
-			int	i = 0;
-			if (d < drawstart)
-				img_pix_put(&data->img, x, d, data->map->floor_color);
-			else if (d >= drawend)
-				img_pix_put(&data->img, x, d, data->map->ceiling_color);
-			else
-			{
-				float	coef = (float)(d - (LENGTH / 2 - lineHeight / 2)) / (float)(lineHeight);
-				int texy = data->tex->wall_no.tex_height * coef;
-				i = data->tex->wall_no.tex_width * texy + texX;
-				if (i < 0)
-				{
-					printf ("width : %d", data->tex->wall_no.tex_width);
-					printf ("texy : %d", texy);
-					printf ("texx : %d", texX);
-					exit(0);
-				}
-				img_pix_put(&data->img, x , d, stock_int[i]);
-			}
-		d++;
+			draw_pixel(data, d, x);
+			d++;
 		}
-
+		x++;
 	}
-	
-
 }
-
-void ray_caster_try_2(t_data *data)
-{
-	float ffov = 3.14159f / 4.0f;
-	float fDepth = 16.0f;
-	// float fSpeed = 5.0f;	
-
-	for (int x = 0; x < WIDTH; x++)
-	{
-			float fRayAngle = (data->player.a - ffov / 2.0f) + ((float)x / (float)WIDTH) * ffov;
-
-			// Find distance to wall
-			float fStepSize = 0.01f;	  // Increment size for ray casting, decrease to increase	
-			float fDistanceToWall = 0.0f; //                                      resolution
-
-			int bHitWall = 0;		// Set when ray hits wall block
-			// int bBoundary = 0;		// Set when ray hits boundary between two wall blocks
-
-			float fEyeX = sinf(fRayAngle); // Unit vector for ray in player space
-			float fEyeY = cosf(fRayAngle);
-
-			// float fSampleX = 0.0f;
-
-			// int bLit = 0;
-
-			// Incrementally cast ray from player, along ray angle, testing for 
-			// intersection with a block
-			while (!bHitWall && fDistanceToWall < fDepth)
-			{
-				fDistanceToWall += fStepSize;
-				int nTestX = (int)(data->player.x + fEyeX * fDistanceToWall);
-				int nTestY = (int)(data->player.y + fEyeY * fDistanceToWall);
-
-				// Test if ray is out of bounds
-				if (nTestX < 0 || nTestX >= data->map->map_width || nTestY < 0 || nTestY >= data->map->map_lenght)
-				{
-					bHitWall = 1;			// Just set distance to maximum depth
-					fDistanceToWall = fDepth;
-				}
-			// 	else
-			// 	{
-			// 		// Ray is inbounds so test to see if the ray cell is a wall block
-			// 		if (data->map->map[nTestX * data->map->map_width + nTestY] == 1)
-			// 		{
-			// 			// Ray has hit wall
-			// 			bHitWall = 1;
-
-			// 			// Determine where ray has hit wall. Break Block boundary
-			// 			// int 4 line segments
-			// 			float fBlockMidX = (float)nTestX + 0.5f;
-			// 			float fBlockMidY = (float)nTestY + 0.5f;
-
-			// 			float fTestPointX = data->player.x + fEyeX * fDistanceToWall;
-			// 			float fTestPointY = data->player.y + fEyeY * fDistanceToWall;
-
-			// 			float fTestAngle = atan2f((fTestPointY - fBlockMidY), (fTestPointX - fBlockMidX));
-
-			// 			if (fTestAngle >= -3.14159f * 0.25f && fTestAngle < 3.14159f * 0.25f)
-			// 				fSampleX = fTestPointY - (float)nTestY;
-			// 			if (fTestAngle >= 3.14159f * 0.25f && fTestAngle < 3.14159f * 0.75f)
-			// 				fSampleX = fTestPointX - (float)nTestX;
-			// 			if (fTestAngle < -3.14159f * 0.25f && fTestAngle >= -3.14159f * 0.75f)
-			// 				fSampleX = fTestPointX - (float)nTestX;
-			// 			if (fTestAngle >= 3.14159f * 0.75f || fTestAngle < -3.14159f * 0.75f)
-			// 				fSampleX = fTestPointY - (float)nTestY;
-			// 		}
-			// 	}
-			}
-
-			// Calculate distance to ceiling and floor
-			int nCeiling = (float)(LENGTH / 2.0) - LENGTH / ((float)fDistanceToWall);
-			// int nFloor = LENGTH - nCeiling;
-
-			// Update Depth Buffer
-
-			for (int y = 0; y < LENGTH; y++)
-			{
-				// Each Row
-				if (y <= nCeiling)
-					img_pix_put(&data->img, x, y, data->map->floor_color);
-				// else if (y > nCeiling && y <= nFloor)
-				// {
-				// 	// Draw Wall
-				// 	if (fDistanceToWall < fDepth)
-				// 	{
-				// 		float fSampleY = ((float)y - (float)nCeiling) / ((float)nFloor - (float)nCeiling);
-				// 		// Draw(x, y, spriteWall->SampleGlyph(fSampleX, fSampleY), spriteWall->SampleColour(fSampleX, fSampleY));
-				// 	}
-				// 	else
-				// 		Draw(x, y, PIXEL_SOLID, 0);
-				// }
-				else // Floor
-				{
-					img_pix_put(&data->img, x, y, data->map->ceiling_color);
-				}
-			}
-		}
-
-}
-
 
 int render_ctrl(t_data *data)
 {

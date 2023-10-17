@@ -6,7 +6,7 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:09:47 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/17 12:44:53 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/17 17:11:26 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,12 @@ typedef struct s_player
 	float	planeY;
 	float	ray_angle;
 	float	distance_to_wall;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
+	float	wallx;
+	int		texx;
+	int		texy;
 } t_player;
 
 typedef struct s_ray
