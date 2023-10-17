@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_crtl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:27:48 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/17 12:59:10 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/17 15:45:51 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,11 @@ int init_tex(t_data *data)
 
 int *load_good_tex(t_data *data)
 {
-	if (data->ray.side == 1 && data->ray.rayDirY <= 0)
+	if (data->ray.side == 1 && data->ray.rayDirY < 0)
 		return (int *)data->tex->wall_so.addr;
-	if (data->ray.side == 1 && data->ray.rayDirY > 0)
+	else if (data->ray.side == 1 && data->ray.rayDirY > 0)
 		return (int *)data->tex->wall_no.addr;
-	if (data->ray.side == 0 && data->ray.rayDirX <= 0)
+	else if (data->ray.side == 0 && data->ray.rayDirX < 0)
 		return (int *)data->tex->wall_ea.addr;
 	else
 		return (int *)data->tex->wall_we.addr;
@@ -100,7 +100,7 @@ void raycaster(t_data *data)
 
 	for (int x = 0; x < WIDTH; x++)
 	{
-		data->ray.camerax = x / (float)WIDTH * 2 - 1;
+		data->ray.camerax = (x / (float)WIDTH) * 2 - 1.f;
 		data->ray.rayDirX = data->player.dirX + data->player.planeX * data->ray.camerax;
 		data->ray.rayDirY = data->player.dirY + data->player.planeY * data->ray.camerax;
 		data->ray.mapx = (int)data->player.x;
@@ -166,10 +166,21 @@ void raycaster(t_data *data)
 			wallX = data->player.x + data->ray.perpWallDist * data->ray.rayDirX;
 		else
 			wallX = data->player.y + data->ray.perpWallDist * data->ray.rayDirY;
-		wallX -= (int)wallX;
-		wallX = 1.0f - wallX;
-		if ((data->ray.side == 1 && ((data->ray.rayDirY) > 0)) || (data->ray.side == 0 && (data->ray.rayDirX <= 0)))
+		wallX = wallX - floorf(wallX);
+		printf("- wallX : %f\n", wallX);
+		if ((data->ray.side == 1 && ((data->ray.rayDirY) > 0)) || (data->ray.side == 0 && (data->ray.rayDirX <= 0))) {
+			if ( wallX > 1) {
+				printf("wallX : %f\n", wallX);
+				exit(21);
+			}
 			wallX = 1.0f - wallX;
+			
+		}
+
+		if (wallX < 0) {
+			printf("wallX :%f\n	", wallX);
+			exit(21);
+		}
 		int texX = (int)(wallX * (float) 64.0);
 	
 		float step = 1.0 * data->tex->wall_no.tex_height / data->tex->wall_no.tex_width;
@@ -178,14 +189,54 @@ void raycaster(t_data *data)
 		while (d < LENGTH)
 		{
 			int *stock_int = load_good_tex(data);
-			int texy = ((float)(d - drawstart) / (float)(drawend - drawstart)) * data->tex->wall_no.tex_height;
+			// printf("d");
+			if ((float)(drawend - drawstart) == 0)
+			{
+				printf("ici\n");
+				exit(0);
+			}
+
+
 			texPos = texPos + step;
+			int	i = 0;
 			if (d < drawstart)
 				img_pix_put(&data->img, x, d, data->map->floor_color);
 			else if (d > drawend)
 				img_pix_put(&data->img, x, d, data->map->ceiling_color);
 			else //(data->ray.side == 0)
-				img_pix_put(&data->img, x , d, stock_int[data->tex->wall_no.tex_width * texy + texX]);
+			{
+				float	coef = (float)(d - (LENGTH / 2 - lineHeight / 2)) / (float)(lineHeight);
+				int texy = data->tex->wall_no.tex_height * coef;
+				// if ( data->tex->wall_no.tex_width * texy + texX < 0 && coef < 0 )
+				// {
+				// 	printf("coef\n");
+				// 	exit(0);
+				// }
+				// if ( data->tex->wall_no.tex_width * texy + texX < 0 && data->tex->wall_no.tex_height < 0 ) {
+				// 	printf("height\n");
+				// 	exit(0);
+				// }
+				// if ( data->tex->wall_no.tex_width < 0 && data->tex->wall_no.tex_width * texy + texX < 0) {
+				// 	printf("widht\n");
+				// }
+				// if ( texX < 0 && data->tex->wall_no.tex_width * texy + texX < 0) {
+				// 	printf("texX");
+				// 	exit(0);
+				// }
+				// img_pix_put(&data->img, x , d, 65000);
+				i = data->tex->wall_no.tex_width * texy + texX;
+				if (i < 0)
+				{
+					printf ("width : %d", data->tex->wall_no.tex_width);
+					printf ("texy : %d", texy);
+					printf ("texx : %d", texX);
+					exit(0);
+					// i *= -1;
+				}
+				img_pix_put(&data->img, x , d, stock_int[i]);
+			}
+				// img_pix_put(&data->img, x , d, stock_int[data->tex->wall_no.tex_width * texy + texX]);
+
 			d++;
 		}
 

@@ -6,7 +6,7 @@
 #    By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/19 12:11:53 by sbarrage          #+#    #+#              #
-#    Updated: 2023/10/10 13:47:06 by sbarrage         ###   ########.fr        #
+#    Updated: 2023/10/17 15:00:43 by sbarrage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,10 @@ RM = rm -rf
 MKDIR = mkdir -p
 
 all:	mlx $(NAME)
+
+wf : all
+
+wf : CFLAGS = -g3 
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(MKDIR) $(OBJ_DIR)
