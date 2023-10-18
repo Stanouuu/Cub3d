@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 22:00:46 by sbarrage          #+#    #+#             */
-/*   Updated: 2022/05/17 18:00:15 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/17 17:59:24 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	arr_size(char const *s, char c)
 		if (s[i] != c)
 		{
 			j++;
-			while (s[i] != c && s[i])
+			if (s[i] != c && s[i])
 				i++;
 		}
 		if (s[i])
@@ -53,7 +53,7 @@ char	**ft_split(char const *s, char c)
 			i++;
 		if (i > 0)
 			spdstr[d++] = ft_substr(s, j, i - j);
-		while (s[i] == c && s[i])
+		if (s[i] == c && s[i])
 			i++;
 	}
 	spdstr[d] = NULL;
