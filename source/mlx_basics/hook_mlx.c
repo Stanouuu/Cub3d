@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 15:31:58 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/17 16:25:09 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:12:20 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	strafe(int keysym, t_data *data)
 {
-	if (keysym == XK_d)
+	if (keysym == XK_a)
 	{
 		data->player.y += cosf(data->player.a) * 0.1f;
 		if (data->map->map[(int)(data->player.x)][(int)(data->player.y)] == 1)
@@ -23,7 +23,7 @@ void	strafe(int keysym, t_data *data)
 		if (data->map->map[(int)(data->player.x)][(int)(data->player.y)] == 1)
 			data->player.x += sinf(data->player.a) * 0.1f;
 	}
-	if (keysym == XK_a)
+	if (keysym == XK_d)
 	{
 		data->player.y -= cosf(data->player.a) * 0.1f;
 		if (data->map->map[(int)(data->player.x)][(int)(data->player.y)] == 1)
@@ -43,15 +43,15 @@ void	rotate_left(int keysym, t_data *data)
 	if (keysym == 65361)
 	{
 		data->player.a += 0.08f;
-		olddir = data->player.dirX;
-		data->player.dirX = data->player.dirX * cos(0.08)
-			- data->player.dirY * sin((0.08));
-		data->player.dirY = olddir * sin(0.08) + data->player.dirY * cos(0.08);
-		oldplanex = data->player.planeX;
-		data->player.planeX = data->player.planeX * cos(0.08)
-			- data->player.planeY * sin(0.08);
-		data->player.planeY = oldplanex * sin(0.08)
-			+ data->player.planeY * cos (0.08);
+		olddir = data->player.dirx;
+		data->player.dirx = data->player.dirx * cos(0.08)
+			- data->player.diry * sin((0.08));
+		data->player.diry = olddir * sin(0.08) + data->player.diry * cos(0.08);
+		oldplanex = data->player.planex;
+		data->player.planex = data->player.planex * cos(0.08)
+			- data->player.planey * sin(0.08);
+		data->player.planey = oldplanex * sin(0.08)
+			+ data->player.planey * cos (0.08);
 	}
 }
 
@@ -64,16 +64,16 @@ void	rotate_right(int keysym, t_data *data)
 	if (keysym == 65363)
 	{
 		data->player.a -= 0.08f;
-		olddir = data->player.dirX;
-		data->player.dirX = data->player.dirX * cos(-0.08)
-			- data->player.dirY * sin((-0.08));
-		data->player.dirY = olddir * sin(-0.08)
-			+ data->player.dirY * cos(-0.08);
-		oldplanex = data->player.planeX;
-		data->player.planeX = data->player.planeX * cos(-0.08)
-			- data->player.planeY * sin(-0.08);
-		data->player.planeY = oldplanex * sin(-0.08)
-			+ data->player.planeY * cos (-0.08);
+		olddir = data->player.dirx;
+		data->player.dirx = data->player.dirx * cos(-0.08)
+			- data->player.diry * sin((-0.08));
+		data->player.diry = olddir * sin(-0.08)
+			+ data->player.diry * cos(-0.08);
+		oldplanex = data->player.planex;
+		data->player.planex = data->player.planex * cos(-0.08)
+			- data->player.planey * sin(-0.08);
+		data->player.planey = oldplanex * sin(-0.08)
+			+ data->player.planey * cos (-0.08);
 	}
 }
 
@@ -82,20 +82,20 @@ void	basic_mvmt(int keysym, t_data *data)
 	if (keysym == XK_w)
 	{
 		if (data->map->map[(int)(data->player.x
-				+ data->player.dirX * 0.5)][(int)data->player.y] == 0)
-			data->player.x = data->player.x + data->player.dirX * 0.1;
+				+ data->player.dirx * 0.5)][(int)data->player.y] == 0)
+			data->player.x = data->player.x + data->player.dirx * 0.1;
 		if (data->map->map[(int)(data->player.x)][(int)(data->player.y
-				+ data->player.dirY * 0.5)] == 0)
-			data->player.y = data->player.y + data->player.dirY * 0.1;
+				+ data->player.diry * 0.5)] == 0)
+			data->player.y = data->player.y + data->player.diry * 0.1;
 	}
 	if (keysym == XK_s)
 	{
 		if (data->map->map[(int)(data->player.x
-				- data->player.dirX)][(int)data->player.y] == 0)
-			data->player.x = data->player.x - data->player.dirX * 0.1;
+				- data->player.dirx)][(int)data->player.y] == 0)
+			data->player.x = data->player.x - data->player.dirx * 0.1;
 		if (data->map->map[(int)(data->player.x)][(int)(data->player.y
-				- data->player.dirY)] == 0)
-			data->player.y = data->player.y - data->player.dirY * 0.1;
+				- data->player.diry)] == 0)
+			data->player.y = data->player.y - data->player.diry * 0.1;
 	}
 }
 
@@ -106,7 +106,6 @@ int	handle_input(int keysym, t_data *data)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		data->win_ptr = NULL;
 	}
-	// printf("%d\n", keysym);
 	basic_mvmt(keysym, data);
 	strafe(keysym, data);
 	rotate_right(keysym, data);

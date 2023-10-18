@@ -6,19 +6,19 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 12:02:30 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/09 12:08:59 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:55:24 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
 # define PARSE_H
 
-#include "cube.h"
+# include "cube.h"
 
 /* Extract/Parse */
 
 t_map	*info_extract(char *map_name, t_data *data);
-t_map 	*parse_central(char **argv, int argc, t_data *data);
+t_map	*parse_central(char **argv, int argc, t_data *data);
 int		extract_second_half(char **file, t_map *map, t_data *data);
 char	**extract_file(char *map_name);
 int		size_compar(char *line, int j);

@@ -6,7 +6,7 @@
 #    By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/19 12:11:53 by sbarrage          #+#    #+#              #
-#    Updated: 2023/10/18 15:29:08 by sbarrage         ###   ########.fr        #
+#    Updated: 2023/10/18 16:11:27 by sbarrage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC =	mlx_basics/exit_mlx.c mlx_basics/init_mlx.c mlx_basics/hook_mlx.c\
 		gnl/get_next_line.c gnl/get_next_line_utils.c\
 		parsing/extractor.c parsing/parse.c parsing/checks.c\
 		parsing/extractor_2.c parsing/checks_2.c parsing/checks_3.c parsing/extractor_3.c\
-		render/loader.c main.c render/init_ray.c error.c\
+		render/loader.c main.c render/init_ray.c error.c exit.c\
 
 SRC_DIR = source
 
