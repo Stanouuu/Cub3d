@@ -6,19 +6,19 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:51:53 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/18 15:15:50 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:19:15 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-void update_dir(t_player *data, float x, float y)
+void	update_dir(t_player *data, float x, float y)
 {
 	data->dirX = x;
 	data->dirY = y;
 }
 
-void update_plane(t_player *data, float x, float y)
+void	update_plane(t_player *data, float x, float y)
 {
 	data->planeX = x;
 	data->planeY = y;
