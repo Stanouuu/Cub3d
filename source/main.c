@@ -12,6 +12,18 @@
 
 #include "cube.h"
 
+void update_dir(t_player *data, float x, float y)
+{
+	data->dirX = x;
+	data->dirY = y;
+}
+
+void update_plane(t_player *data, float x, float y)
+{
+	data->planeX = x;
+	data->planeY = y;
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -47,8 +59,6 @@ int	main(int argc, char **argv)
 		ft_exit(&data);
 		return (3);
 	}
-	data.player.planeX = 0.0;
-	data.player.planeY = 0.66;
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_input, &data);
 	mlx_loop_hook(data.mlx_ptr, &render_ctrl, &data);
 	mlx_loop(data.mlx_ptr);
