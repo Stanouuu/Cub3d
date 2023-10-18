@@ -6,7 +6,7 @@
 #    By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 17:15:24 by yanthoma          #+#    #+#              #
-#    Updated: 2023/10/10 13:46:43 by sbarrage         ###   ########.fr        #
+#    Updated: 2023/10/18 12:53:46 by sbarrage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS	=	ft_atoi.c		ft_isalpha.c	ft_memmove.c	ft_strdup.c\
 			ft_strlcpy.c 	ft_strnstr.c 	ft_strncmp.c	ft_substr.c\
 			ft_strjoin.c	ft_strtrim.c	ft_split.c		ft_itoa.c\
 			ft_strmapi.c	ft_striteri.c	ft_putchar_fd.c	ft_putstr_fd.c\
-			ft_putendl_fd.c	ft_putnbr_fd.c\
+			ft_putendl_fd.c	ft_putnbr_fd.c	ft_iswhitespace.c\
 
 OBJS	= ${SRCS:.c=.o}
 

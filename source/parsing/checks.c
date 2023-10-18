@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 14:32:26 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/16 18:34:02 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/18 13:57:40 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	check_number(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] == ' ' || (line[i] <= 13 && line[i] >= 9))
+	while (ft_iswhitespace(line[i]) == 0)
 		i++;
 	if (ft_isdigit(line[i]) == 1)
 		return (1);
@@ -67,13 +67,18 @@ int	check_number(char *line)
 int	check_first_half(char **file)
 {
 	int	i;
+	int	j;
 	int	s;
 
+	j = 0;
 	i = 0;
 	s = 0;
 	while (file[i] && check_number(file[i]) == 0)
 	{
-		if (!(*(file[i]) == ' ' || (*(file[i]) <= 13 && *(file[i]) >= 9)))
+		j = 0;
+		while (file[i][j] && ft_iswhitespace(file[i][j]) == 0)
+			j++;
+		if (file[i][j] && ft_iswhitespace(file[i][j]) == 1)
 			s++;
 		i++;
 	}

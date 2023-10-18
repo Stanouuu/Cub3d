@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:18:54 by stan              #+#    #+#             */
-/*   Updated: 2023/10/16 18:34:23 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:05:41 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ char	*reformat(char *str)
 	return (res);
 }
 
+/* 	// if (correct_order(dir, j) < 0)
+	// 	return (NULL); */
+
 char	*find_blank_dir(char **file, char *dir, int s)
 {
 	int	i;
@@ -41,8 +44,6 @@ char	*find_blank_dir(char **file, char *dir, int s)
 		if (check_number(file[i++]) == 1)
 			return (NULL);
 	}
-	if (correct_order(dir, j) < 0)
-		return (NULL);
 	if (s == 2)
 		return (file[i] + 2);
 	if (!file[i] || !file[i][j])
@@ -63,12 +64,12 @@ int	str_to_hex(char *str)
 	int		i;
 
 	i = 0;
-	if (!str)
+	if (!str || ft_isdigit(*str) == 0)
 		return (-1);
 	nbrs = ft_split(str, ',');
 	if (!nbrs)
 		return (-1);
-	while (nbrs[i] && *(nbrs[i]))
+	while (nbrs[i])
 		i++;
 	if (i != 3)
 		return (free_mat((void **)nbrs, -1), -1);

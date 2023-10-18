@@ -6,7 +6,7 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:29:31 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/17 16:42:59 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:04:43 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,28 @@
 
 void	player_info_extract(char direction, t_player *player, int x, int y)
 {
-	if (direction == 'S')
+	if (direction == 'N' || direction == 'S')
 	{
-		player->dirX = 1;
-		player->dirY = 0;
+		player->dirX = 0;
+		if (direction == 'N')
+			player->dirY = 1;
+		if (direction == 'S')
+			player->dirY = -1;
 	}
-	else if (direction == 'N')
+	else if (direction == 'W' || direction == 'E')
 	{
-		player->dirX = -1;
 		player->dirY = 0;
-	}
-	else if (direction == 'E')
-	{
-		player->dirX = -2;
-		player->dirY = 0;
-	}
-	else if (direction == 'W')
-	{
-		player->dirX = 1;
-		player->dirY = 0;
+		if (direction == 'W')
+			player->dirX = 1;
+		if (direction == 'E')
+			player->dirX = -1;
 	}
 	else
-		return ;
+		player->y = -2;
 	if (player->y == -1)
 	{
-		player->y = y;
-		player->x = x;
+		player->y = y + 0.5;
+		player->x = x + 0.5;
 	}
 	else
 		player->y = -2;
@@ -53,10 +49,8 @@ void	fill_map_3(char *file, t_map *map, int h, t_data *data)
 	while (map->map_width > j)
 	{
 		if (file[j] == 0)
-		{
 			while (map->map_width > j)
 				map->map[h][j++] = 2;
-		}
 		else if (file[j] == '0')
 			map->map[h][j++] = 0;
 		else if (file[j] == ' ' || (file[j] <= 13 && file[j] >= 9))
@@ -111,16 +105,18 @@ int	extract_second_half(char **file, t_map *map, t_data *data)
 	if (!map->map)
 		return (-2);
 	s = map_width(file);
+	if (s < 0)
+		return (-3);
 	map->map_width = s;
 	s = 0;
 	while (map->map_lenght > s)
 	{
 		map->map[s] = malloc(sizeof(int ) * map->map_width);
 		if (!map->map[s])
-			return (map->map_lenght = s, -3);
+			return (map->map_lenght = s, -4);
 		s++;
 	}
 	if (fill_map(file, map, data) < 0)
-		return (-4);
+		return (-5);
 	return (1);
 }
