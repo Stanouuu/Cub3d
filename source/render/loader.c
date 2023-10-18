@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loader.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 17:43:40 by nklingsh          #+#    #+#             */
-/*   Updated: 2023/10/18 15:14:47 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:55:26 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ int	init_tex(t_data *data)
 	data->tex->wall_ea.mlx_img = NULL;
 	if (!data->tex)
 		return (-1);
-	if (load_north(data) < 0)
+	if (load_north(data) < 0 || check_open_tex(data->map->north) == 1)
 		return (-1);
-	if (load_south(data) < 0)
+	if (load_south(data) < 0 || check_open_tex(data->map->south) == 1)
 		return (-2);
-	if (load_west(data) < 0)
+	if (load_west(data) < 0 || check_open_tex(data->map->west) == 1)
 		return (-3);
-	if (load_east(data) < 0)
+	if (load_east(data) < 0 || check_open_tex(data->map->east) == 1)
 		return (-4);
 	return (0);
 }

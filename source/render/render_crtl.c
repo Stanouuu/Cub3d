@@ -6,7 +6,7 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:27:48 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/18 14:29:44 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:51:55 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,15 @@ int	render_ctrl(t_data *data)
 	raycaster(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, img->mlx_img, 0, 0);
 	return (1);
+}
+
+int	check_open_tex(char *str)
+{
+	int fd;
+
+	fd = open(str, O_RDONLY);
+	if (fd == -1)
+		return (1);
+	close(fd);
+	return (0);
 }
