@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:32:59 by stan              #+#    #+#             */
-/*   Updated: 2023/10/17 13:12:05 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:57:51 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,14 @@ void	ft_exit_map(t_map *map)
 
 void	ft_exit_tex(t_data *data)
 {
-	mlx_destroy_image(data->mlx_ptr, data->tex->wall_no.mlx_img);
-	mlx_destroy_image(data->mlx_ptr, data->tex->wall_so.mlx_img);
-	mlx_destroy_image(data->mlx_ptr, data->tex->wall_we.mlx_img);
-	mlx_destroy_image(data->mlx_ptr, data->tex->wall_ea.mlx_img);
+	if (data->tex->wall_no.mlx_img)
+		mlx_destroy_image(data->mlx_ptr, data->tex->wall_no.mlx_img);
+	if (data->tex->wall_so.mlx_img)
+		mlx_destroy_image(data->mlx_ptr, data->tex->wall_so.mlx_img);
+	if (data->tex->wall_we.mlx_img)
+		mlx_destroy_image(data->mlx_ptr, data->tex->wall_we.mlx_img);
+	if (data->tex->wall_ea.mlx_img)
+		mlx_destroy_image(data->mlx_ptr, data->tex->wall_ea.mlx_img);
 }
 
 void	ft_exit_data(t_data *data)
@@ -68,6 +72,7 @@ void	ft_exit_data(t_data *data)
 	if (data->tex)
 	{
 		ft_exit_tex(data);
+		usleep(100);
 		free(data->tex);
 	}
 }
@@ -87,8 +92,16 @@ void ft_error(t_map *map, t_data *data, char *str)
 	if (data)
 		ft_exit_data(data);
 	if (errno == ENOMEM || errno == ENOENT || errno == EACCES || errno == EISDIR)
-		printf("Cube: %s\n", strerror(errno));
+	{
+		write(2, "Cube: ", 6);
+		write(2, strerror(errno), ft_strlen(strerror(errno)));
+		write(2, "\n", 1);
+	}
 	else if (str)
-		printf ("Cube: %s\n", str);
+	{
+		write(2, "Cube: ", 6);
+		write(2, str, ft_strlen(str));
+		write(2, "\n", 1);
+	}
 }
 

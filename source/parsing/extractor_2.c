@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extractor_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:29:31 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/18 14:04:43 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:31:36 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ void	player_info_extract(char direction, t_player *player, int x, int y)
 {
 	if (direction == 'N' || direction == 'S')
 	{
-		player->dirX = 0;
+		player->dirY = 0;
 		if (direction == 'N')
-			player->dirY = 1;
+			player->dirX = -1;
 		if (direction == 'S')
-			player->dirY = -1;
+			player->dirX = 1;
 	}
 	else if (direction == 'W' || direction == 'E')
 	{
-		player->dirY = 0;
+		player->dirX = 1;
 		if (direction == 'W')
-			player->dirX = 1;
+			player->dirY = 1;
 		if (direction == 'E')
-			player->dirX = -1;
+			player->dirY = 1;
 	}
 	else
 		player->y = -2;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loader.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 17:43:40 by nklingsh          #+#    #+#             */
-/*   Updated: 2023/10/17 18:32:26 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:42:59 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,19 @@ int	load_east(t_data *data)
 int init_tex(t_data *data)
 {
 	data->tex = malloc(sizeof(t_tex));
+	data->tex->wall_no.mlx_img = NULL;
+	data->tex->wall_so.mlx_img = NULL;
+	data->tex->wall_we.mlx_img = NULL;
+	data->tex->wall_ea.mlx_img = NULL;
 	if (!data->tex)
 		return (-1);
 	if (load_north(data) < 0)
 		return (-1);
 	if (load_south(data) < 0)
 		return (-2);
-	if (load_west(data))
+	if (load_west(data) < 0)
 		return (-3);
-	if (load_east(data))
+	if (load_east(data) < 0)
 		return (-4);
 	return (0);
 }
