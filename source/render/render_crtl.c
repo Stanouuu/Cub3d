@@ -6,7 +6,7 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:27:48 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/17 18:27:29 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:29:44 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	raycaster(t_data *data)
 	while (x < WIDTH)
 	{
 		init_ray(data, x);
+		printf("%f dirx  %f diry\n", data->player.dirX, data->player.dirY);
 		init_sidedist(data);
 		position_map(data);
 		init_ray_calc(data);

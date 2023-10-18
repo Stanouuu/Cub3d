@@ -6,11 +6,23 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:51:53 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/17 16:29:26 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:15:50 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+
+void update_dir(t_player *data, float x, float y)
+{
+	data->dirX = x;
+	data->dirY = y;
+}
+
+void update_plane(t_player *data, float x, float y)
+{
+	data->planeX = x;
+	data->planeY = y;
+}
 
 int	main(int argc, char **argv)
 {
@@ -47,9 +59,6 @@ int	main(int argc, char **argv)
 		ft_exit(&data);
 		return (3);
 	}
-
-	data.player.planeX = 0.0;
-	data.player.planeY = 0.66;
 	
 	// initialize(&data);
 	// data.map = open("map", O_RDONLY);

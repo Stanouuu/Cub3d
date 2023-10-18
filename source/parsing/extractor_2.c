@@ -6,7 +6,7 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:29:31 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/17 16:42:59 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:16:02 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,23 @@ void	player_info_extract(char direction, t_player *player, int x, int y)
 {
 	if (direction == 'S')
 	{
-		player->dirX = 1;
-		player->dirY = 0;
+		update_dir(player, 1, 0);
+		update_plane(player, 0, -0.66);
 	}
 	else if (direction == 'N')
 	{
-		player->dirX = -1;
-		player->dirY = 0;
+		update_dir(player, -1, 0);
+		update_plane(player, 0, 0.66);
 	}
 	else if (direction == 'E')
 	{
-		player->dirX = -2;
-		player->dirY = 0;
+		update_dir(player, 0, 1);
+		update_plane(player, 0.66, 0);
 	}
 	else if (direction == 'W')
 	{
-		player->dirX = 1;
-		player->dirY = 0;
+		update_dir(player, 0, -1);
+		update_plane(player, 0.66, 0);
 	}
 	else
 		return ;
