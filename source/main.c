@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:51:53 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/18 15:15:50 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:59:31 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,8 @@ int	main(int argc, char **argv)
 		ft_exit(&data);
 		return (3);
 	}
-	
-	// initialize(&data);
-	// data.map = open("map", O_RDONLY);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_input, &data);
 	mlx_loop_hook(data.mlx_ptr, &render_ctrl, &data);
-	// mlx_hook(data.win_ptr, ClientMessage, KeyPressMask, &handle_cross, &data);
-	// write(1, "h", 1);
 	mlx_loop(data.mlx_ptr);
 	ft_exit(&data);
-	// close(data.map);
-	// mlx_destroy_image(data.mlx_ptr, data.img.mlx_img);
-	// mlx_destroy_display(data.mlx_ptr);
-	// free(data.mlx_ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:15:29 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/17 11:50:36 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:00:26 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	init_mlx(t_data *data)
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
 		return (1);
-	data->win_ptr = mlx_new_window(data->mlx_ptr, WIDTH, LENGTH, "FDF");
+	data->win_ptr = mlx_new_window(data->mlx_ptr, WIDTH, LENGTH, "CUBE ");
 	if (data->win_ptr == NULL)
 	{
 		free(data->mlx_ptr);
