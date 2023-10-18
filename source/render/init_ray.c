@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 17:47:57 by nklingsh          #+#    #+#             */
-/*   Updated: 2023/10/17 18:03:38 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:09:55 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,29 @@
 
 void	init_sidedist(t_data *data)
 {
-	if (data->ray.rayDirX < 0)
+	if (data->ray.raydirx < 0)
 	{
-		data->ray.stepX = -1;
-		data->ray.sideDistX = (data->player.x - data->ray.mapx) \
-		* data->ray.deltadistX;
+		data->ray.stepx = -1;
+		data->ray.sidedistx = (data->player.x - data->ray.mapx) \
+		* data->ray.deltadistx;
 	}
 	else
 	{
-		data->ray.stepX = 1;
-		data->ray.sideDistX = (data->ray.mapx + 1.0 - data->player.x) \
-		* data->ray.deltadistX;
+		data->ray.stepx = 1;
+		data->ray.sidedistx = (data->ray.mapx + 1.0 - data->player.x) \
+		* data->ray.deltadistx;
 	}
-	if (data->ray.rayDirY < 0)
+	if (data->ray.raydiry < 0)
 	{
-		data->ray.stepY = -1;
-		data->ray.sideDistY = (data->player.y - data->ray.mapy) \
-		* data->ray.deltadistY;
+		data->ray.stepy = -1;
+		data->ray.sidedisty = (data->player.y - data->ray.mapy) \
+		* data->ray.deltadisty;
 	}
 	else
 	{
-		data->ray.stepY = 1;
-		data->ray.sideDistY = (data->ray.mapy + 1.0 - data->player.y) \
-		* data->ray.deltadistY;
+		data->ray.stepy = 1;
+		data->ray.sidedisty = (data->ray.mapy + 1.0 - data->player.y) \
+		* data->ray.deltadisty;
 	}
 }
 
@@ -44,32 +44,32 @@ void	position_map(t_data *data)
 {
 	while (data->ray.hit == 0)
 	{
-		if (data->ray.sideDistX < data->ray.sideDistY)
+		if (data->ray.sidedistx < data->ray.sidedisty)
 		{
-			data->ray.sideDistX = data->ray.sideDistX \
-			+ data->ray.deltadistX;
-			data->ray.mapx = data->ray.mapx + data->ray.stepX;
+			data->ray.sidedistx = data->ray.sidedistx \
+			+ data->ray.deltadistx;
+			data->ray.mapx = data->ray.mapx + data->ray.stepx;
 			data->ray.side = 0;
 		}
 		else
 		{
-			data->ray.sideDistY = data->ray.sideDistY \
-			+ data->ray.deltadistY;
-			data->ray.mapy = data->ray.mapy + data->ray.stepY;
+			data->ray.sidedisty = data->ray.sidedisty \
+			+ data->ray.deltadisty;
+			data->ray.mapy = data->ray.mapy + data->ray.stepy;
 			data->ray.side = 1;
 		}
 		if (data->map->map[data->ray.mapx][data->ray.mapy] == 1)
 			data->ray.hit = 1;
 	}
 	if (data->ray.side == 0)
-		data->ray.perpWallDist = (data->ray.sideDistX - data->ray.deltadistX);
+		data->ray.perpwalldist = (data->ray.sidedistx - data->ray.deltadistx);
 	else
-		data->ray.perpWallDist = (data->ray.sideDistY - data->ray.deltadistY);
+		data->ray.perpwalldist = (data->ray.sidedisty - data->ray.deltadisty);
 }
 
 void	init_ray_calc(t_data *data)
 {
-	data->player.lineheight = LENGTH / data->ray.perpWallDist;
+	data->player.lineheight = LENGTH / data->ray.perpwalldist;
 	data->player.drawstart = -data->player.lineheight / 2 + LENGTH / 2;
 	if (data->player.drawstart < 0)
 		data->player.drawstart = 0;
@@ -79,16 +79,16 @@ void	init_ray_calc(t_data *data)
 	if (data->ray.side == 1)
 	{
 		data->player.wallx = data->player.x \
-		+ data->ray.perpWallDist * data->ray.rayDirX;
+		+ data->ray.perpwalldist * data->ray.raydirx;
 	}
 	else
 	{
 		data->player.wallx = data->player.y \
-		+ data->ray.perpWallDist * data->ray.rayDirY;
+		+ data->ray.perpwalldist * data->ray.raydiry;
 	}
 	data->player.wallx = data->player.wallx - floorf(data->player.wallx);
-	if ((data->ray.side == 0 && data->ray.rayDirX >= 0.f) \
-	|| (data->ray.side == 1 && data->ray.rayDirY < 0.f))
+	if ((data->ray.side == 0 && data->ray.raydirx >= 0.f) \
+	|| (data->ray.side == 1 && data->ray.raydiry < 0.f))
 		data->player.wallx = 1.0f - data->player.wallx;
 	data->player.texx = (int)(data->player.wallx * (float) 64.0f);
 }

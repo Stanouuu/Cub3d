@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:51:53 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/18 15:38:59 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:07:35 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	player_info_2(char direction, t_player *player)
 {
-		if (direction == 'S')
+	if (direction == 'S')
 	{
 		update_dir(player, 1, 0);
 		update_plane(player, 0, -0.66);
@@ -38,14 +38,14 @@ void	player_info_2(char direction, t_player *player)
 
 void	update_dir(t_player *data, float x, float y)
 {
-	data->dirX = x;
-	data->dirY = y;
+	data->dirx = x;
+	data->diry = y;
 }
 
 void	update_plane(t_player *data, float x, float y)
 {
-	data->planeX = x;
-	data->planeY = y;
+	data->planex = x;
+	data->planey = y;
 }
 
 int	main(int argc, char **argv)
@@ -54,7 +54,8 @@ int	main(int argc, char **argv)
 
 	data.map = NULL;
 	data.tex = NULL;
-	if ((argc && !argv) || init_mlx(&data) > 0 || !parse_central(argv, argc, &data))
+	if ((argc && !argv) || init_mlx(&data) > 0
+		|| !parse_central(argv, argc, &data))
 		return (2);
 	if (init_tex(&data) < 0)
 	{
