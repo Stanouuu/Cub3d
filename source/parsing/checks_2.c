@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:45:20 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/04 17:57:32 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:04:20 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ int	check_map(char **file)
 	while (file[i] && check_number(file[i]) == 1)
 		i++;
 	if (!file[i])
-	{
 		return (i - j);
-	}
 	return (-2);
 }
 
@@ -37,10 +35,11 @@ int	size_compar(char *line, int j)
 	int	i;
 
 	i = 0;
-	while (line[i] == ' ' || (line[i] <= 13 && line[i] >= 9))
+	while (line[i] || line[i] == ' ' || (line[i] <= 13 && line[i] >= 9)
+		|| ft_isdigit(line[i]) == 1)
 		i++;
-	while (line[i] && ft_isdigit(line[i]) == 1)
-		i++;
+	if (line[i])
+		return (-1);
 	if (i > j)
 		return (i);
 	return (j);

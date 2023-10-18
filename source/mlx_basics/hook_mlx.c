@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 15:31:58 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/17 11:02:29 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/17 16:25:09 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	rotate_left(int keysym, t_data *data)
 	float	oldplanex;
 
 	olddir = 0;
-	if (keysym == XK_q)
+	if (keysym == 65361)
 	{
 		data->player.a += 0.08f;
 		olddir = data->player.dirX;
@@ -61,7 +61,7 @@ void	rotate_right(int keysym, t_data *data)
 	float	oldplanex;
 
 	olddir = 0;
-	if (keysym == XK_e)
+	if (keysym == 65363)
 	{
 		data->player.a -= 0.08f;
 		olddir = data->player.dirX;
@@ -106,6 +106,7 @@ int	handle_input(int keysym, t_data *data)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		data->win_ptr = NULL;
 	}
+	// printf("%d\n", keysym);
 	basic_mvmt(keysym, data);
 	strafe(keysym, data);
 	rotate_right(keysym, data);

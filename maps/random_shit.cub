@@ -1,0 +1,12 @@
+NO ./textures/north.xpm
+SO ./textures/south.xpm
+WE ./textures/tmp.xpmm
+EA ./textures/east.xpm
+
+C 0,255,0
+F 220,100,25
+        (str[j] == ' ' || (str[j] <= 13 && str[j] >= 9))
+  11111   
+  1N111
+  1111
+  11111
