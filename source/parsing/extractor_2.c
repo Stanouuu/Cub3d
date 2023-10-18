@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   extractor_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:29:31 by sbarrage          #+#    #+#             */
 /*   Updated: 2023/10/18 14:04:43 by sbarrage         ###   ########.fr       */

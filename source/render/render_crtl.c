@@ -3,22 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   render_crtl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:27:48 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/17 16:10:44 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/17 16:48:58 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-//add floor ceiling
 
 
 int load_north(t_data *data)
 {
-	// data->tex->wall_no = malloc(sizeof(t_imge));
-	// if (!data->tex->wall_no)
-	// 	return (-1);
 	data->tex->wall_no.mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, data->map->north, &data->tex->wall_no.tex_width, &data->tex->wall_no.tex_height);
 	if (!data->tex->wall_no.mlx_img)
 		return (-2);
@@ -28,9 +24,6 @@ int load_north(t_data *data)
 
 int load_south(t_data *data)
 {
-	// data->tex->wall_so = malloc(sizeof(t_imge));
-	// if (!data->tex->wall_so)
-	// 	return (-1);
 	data->tex->wall_so.mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, data->map->south, &data->tex->wall_so.tex_width, &data->tex->wall_so.tex_height);
 	if (!data->tex->wall_so.mlx_img)
 		return (-2);
@@ -40,9 +33,6 @@ int load_south(t_data *data)
 
 int load_west(t_data *data)
 {
-	// data->tex->wall_we = malloc(sizeof(t_imge));
-	// if (!data->tex->wall_we)
-	// 	return (-1);
 	data->tex->wall_we.mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, data->map->west, &data->tex->wall_we.tex_width, &data->tex->wall_we.tex_height);
 	if (!data->tex->wall_we.mlx_img)
 		return (-2);
@@ -52,9 +42,6 @@ int load_west(t_data *data)
 
 int load_east(t_data *data)
 {
-	// data->tex->wall_ea = malloc(sizeof(t_imge));
-	// if (!data->tex->wall_ea)
-	// 	return (-1);
 	data->tex->wall_ea.mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, data->map->east, &data->tex->wall_ea.tex_width, &data->tex->wall_ea.tex_height);
 	if (!data->tex->wall_ea.mlx_img)
 		return (-2);
@@ -67,10 +54,6 @@ int init_tex(t_data *data)
 	data->tex = malloc(sizeof(t_tex));
 	if (!data->tex)
 		return (-1);
-	// data->tex->wall_no = NULL;
-	// data->tex->wall_so = NULL;
-	// data->tex->wall_we = NULL;
-	// data->tex->wall_ea = NULL;
 	if (load_north(data) < 0)
 		return (-1);
 	if (load_south(data) < 0)
@@ -85,73 +68,85 @@ int init_tex(t_data *data)
 int *load_good_tex(t_data *data)
 {
 	if (data->ray.side == 1 && data->ray.rayDirY < 0)
-		return (int *)data->tex->wall_so.addr;
-	else if (data->ray.side == 1 && data->ray.rayDirY > 0)
-		return (int *)data->tex->wall_no.addr;
-	else if (data->ray.side == 0 && data->ray.rayDirX < 0)
-		return (int *)data->tex->wall_ea.addr;
-	else
 		return (int *)data->tex->wall_we.addr;
+	else if (data->ray.side == 1 && data->ray.rayDirY > 0)
+		return (int *)data->tex->wall_ea.addr;
+	else if (data->ray.side == 0 && data->ray.rayDirX < 0)
+		return (int *)data->tex->wall_no.addr;
+	else
+		return (int *)data->tex->wall_so.addr;
 }
 
+
+void init_ray(t_data *data, int x)
+{
+		data->ray.camerax = (x / (float)WIDTH) * 2 - 1.f;
+		data->ray.rayDirX = data->player.dirX + data->player.planeX * data->ray.camerax;
+		data->ray.rayDirY = data->player.dirY + data->player.planeY * data->ray.camerax;
+		data->ray.mapx = (int)data->player.x;
+		data->ray.mapy = (int)data->player.y;
+		data->ray.deltadistX = fabsf(1.f / data->ray.rayDirX);
+		data->ray.deltadistY = fabsf(1.f / data->ray.rayDirY);
+		data->ray.hit = 0;	
+}
+
+void init_sideDist(t_data *data)
+{
+	if (data->ray.rayDirX < 0)
+	{
+		data->ray.stepX = -1;
+		data->ray.sideDistX = (data->player.x - data->ray.mapx) * data->ray.deltadistX;
+	}
+	else
+	{
+		data->ray.stepX = 1;
+		data->ray.sideDistX = (data->ray.mapx + 1.0 - data->player.x) * data->ray.deltadistX;
+	}
+	if (data->ray.rayDirY < 0)
+	{
+		data->ray.stepY = -1;
+		data->ray.sideDistY = (data->player.y - data->ray.mapy) * data->ray.deltadistY;
+	}
+	else
+	{
+		data->ray.stepY = 1;
+		data->ray.sideDistY = (data->ray.mapy + 1.0 - data->player.y) * data->ray.deltadistY;
+	}
+}
+
+void position_map(t_data *data)
+{
+	while (data->ray.hit == 0)
+	{
+		if (data->ray.sideDistX < data->ray.sideDistY)
+		{
+			data->ray.sideDistX  = data->ray.sideDistX + data->ray.deltadistX;
+			data->ray.mapx = data->ray.mapx + data->ray.stepX;
+			data->ray.side = 0;
+		}
+		else
+		{
+			data->ray.sideDistY = data->ray.sideDistY + data->ray.deltadistY;
+			data->ray.mapy = data->ray.mapy + data->ray.stepY;
+			data->ray.side = 1;
+		}
+		if (data->map->map[data->ray.mapx][data->ray.mapy] == 1)
+			data->ray.hit = 1;
+	}
+	if (data->ray.side == 0)
+		data->ray.perpWallDist = (data->ray.sideDistX - data->ray.deltadistX);	
+	else
+		data->ray.perpWallDist = (data->ray.sideDistY - data->ray.deltadistY);
+}
 
 void raycaster(t_data *data)
 {
 
 	for (int x = 0; x < WIDTH; x++)
 	{
-		data->ray.camerax = (x / (float)WIDTH) * 2 - 1.f;
-		data->ray.rayDirX = data->player.dirX + data->player.planeX * data->ray.camerax;
-		data->ray.rayDirY = data->player.dirY + data->player.planeY * data->ray.camerax;
-		data->ray.mapx = (int)data->player.x;
-		data->ray.mapy = (int)data->player.y;
-
-		data->ray.deltadistX = fabsf(1.f / data->ray.rayDirX);
-		data->ray.deltadistY = fabsf(1.f / data->ray.rayDirY);
-		
-		data->ray.hit = 0;
-		if (data->ray.rayDirX < 0)
-		{
-			data->ray.stepX = -1;
-			data->ray.sideDistX = (data->player.x - data->ray.mapx) * data->ray.deltadistX;
-		}
-		else
-		{
-			data->ray.stepX = 1;
-			data->ray.sideDistX = (data->ray.mapx + 1.0 - data->player.x) * data->ray.deltadistX;
-		}
-		if (data->ray.rayDirY < 0)
-		{
-			data->ray.stepY = -1;
-			data->ray.sideDistY = (data->player.y - data->ray.mapy) * data->ray.deltadistY;
-		}
-		else
-		{
-			data->ray.stepY = 1;
-			data->ray.sideDistY = (data->ray.mapy + 1.0 - data->player.y) * data->ray.deltadistY;
-		}
-		while (data->ray.hit == 0)
-		{
-			if (data->ray.sideDistX < data->ray.sideDistY)
-			{
-				data->ray.sideDistX  = data->ray.sideDistX + data->ray.deltadistX;
-				data->ray.mapx = data->ray.mapx + data->ray.stepX;
-				data->ray.side = 0;
-			}
-			else
-			{
-				data->ray.sideDistY = data->ray.sideDistY + data->ray.deltadistY;
-				data->ray.mapy = data->ray.mapy + data->ray.stepY;
-				data->ray.side = 1;
-			}
-			if (data->map->map[data->ray.mapx][data->ray.mapy] == 1)
-				data->ray.hit = 1;
-		}
-		if (data->ray.side == 0)
-			data->ray.perpWallDist = (data->ray.sideDistX - data->ray.deltadistX);	
-		else
-			data->ray.perpWallDist = (data->ray.sideDistY - data->ray.deltadistY);
-
+		init_ray(data, x);
+		init_sideDist(data);
+		position_map(data);
 		int lineHeight = LENGTH / data->ray.perpWallDist;
 
 		int drawstart = -lineHeight / 2 + LENGTH / 2;
