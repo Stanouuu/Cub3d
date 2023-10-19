@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:18:54 by stan              #+#    #+#             */
-/*   Updated: 2023/10/18 14:05:41 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/19 14:34:05 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ char	*find_blank_dir(char **file, char *dir, int s)
 		return (NULL);
 	while (file[i][j] != '.' && file[i][j + 1] != '/')
 	{
-		if (!file[i][j + 1])
+		if (!(file[i][j + 1]))
 			return (NULL);
 		j++;
 	}
-	return (reformat((file[i]) + 3));
+	return (reformat((file[i]) + j));
 }
 
 int	str_to_hex(char *str)

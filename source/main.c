@@ -6,11 +6,18 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:51:53 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/18 16:07:35 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/19 14:12:31 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+
+int	handle_cross(t_data *data)
+{
+	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	data->win_ptr = NULL;
+	return (0);
+}
 
 void	player_info_2(char direction, t_player *player)
 {
@@ -63,6 +70,7 @@ int	main(int argc, char **argv)
 		return (3);
 	}
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_input, &data);
+	mlx_hook(data.win_ptr, ClientMessage, KeyPressMask, &handle_cross, &data);
 	mlx_loop_hook(data.mlx_ptr, &render_ctrl, &data);
 	mlx_loop(data.mlx_ptr);
 	ft_exit(&data);
