@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 14:32:26 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/19 15:21:11 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/19 18:25:29 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_rgb(char *str)
 	i = 0;
 	while (str[i] && str[i] != '\n')
 	{
-		if (ft_isdigit(str[i]) == 0 
+		if (ft_isdigit(str[i]) == 0
 			&& (ft_iswhitespace(str[i]) == 1))
 			return (-1);
 		i++;

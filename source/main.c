@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:51:53 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/19 14:12:31 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/19 18:24:28 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	main(int argc, char **argv)
 	if (init_tex(&data) < 0)
 	{
 		ft_exit(&data);
+		write(1, "Error\nTexture error\n", 21);
 		return (3);
 	}
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_input, &data);
