@@ -6,7 +6,7 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:51:53 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/19 18:37:54 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/19 18:44:13 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	handle_cross(t_data *data)
 	return (0);
 }
 
-void	player_info_2(char direction, t_player *player)
+int	player_info_3(char direction, t_player *player)
 {
 	if (direction == 'S')
 	{
@@ -41,6 +41,13 @@ void	player_info_2(char direction, t_player *player)
 		update_dir(player, 0, -1);
 		update_plane(player, -0.66, 0);
 	}
+	return (0);
+}
+
+void	player_info_2(char direction, t_player *player)
+{
+	if (player_info_3(direction, player) == 0)
+		return ;
 	else
 		player->y = -2;
 }
