@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:51:53 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/19 18:24:28 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/19 18:37:54 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,15 @@ void	player_info_2(char direction, t_player *player)
 		update_dir(player, -1, 0);
 		update_plane(player, 0, 0.66);
 	}
-	else if (direction == 'E' || direction == 'W')
+	else if (direction == 'E')
 	{
+		update_dir(player, 0, 1);
 		update_plane(player, 0.66, 0);
-		if (direction == 'E')
-			update_dir(player, 0, 1);
-		if (direction == 'W')
-			update_dir(player, 0, -1);
+	}
+	else if (direction == 'W')
+	{
+		update_dir(player, 0, -1);
+		update_plane(player, -0.66, 0);
 	}
 	else
 		player->y = -2;
