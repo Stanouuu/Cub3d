@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 13:50:29 by stan              #+#    #+#             */
-/*   Updated: 2023/10/19 14:35:07 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:02:48 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_map	*parse_central(char **argv, int argc, t_data *data)
 {
 	char	*map_name;
 
-	data->player.a = 0;
 	map_name = basic_check(argv, argc);
 	if (map_name == NULL)
 		return (ft_error(NULL, data, "incorrect Arguments"), NULL);

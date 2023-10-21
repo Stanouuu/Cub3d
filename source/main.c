@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:51:53 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/19 18:24:28 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:04:34 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,28 +23,29 @@ void	player_info_2(char direction, t_player *player)
 {
 	if (direction == 'S')
 	{
-		update_dir(player, 1, 0);
+		update_dir(player, 1, 0, 0);
 		update_plane(player, 0, -0.66);
 	}
 	else if (direction == 'N')
 	{
-		update_dir(player, -1, 0);
+		update_dir(player, -1, 0, 0);
 		update_plane(player, 0, 0.66);
 	}
 	else if (direction == 'E' || direction == 'W')
 	{
 		update_plane(player, 0.66, 0);
 		if (direction == 'E')
-			update_dir(player, 0, 1);
+			update_dir(player, 0, 1, 3.14/2);
 		if (direction == 'W')
-			update_dir(player, 0, -1);
+			update_dir(player, 0, -1, 3.14/2);
 	}
 	else
 		player->y = -2;
 }
 
-void	update_dir(t_player *data, float x, float y)
+void	update_dir(t_player *data, float x, float y, float a)
 {
+	data->a  = a;
 	data->dirx = x;
 	data->diry = y;
 }

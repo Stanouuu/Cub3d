@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:09:47 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/18 16:11:01 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:04:58 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_exit_map(t_map *map);
 void	init_sidedist(t_data *data);
 void	position_map(t_data *data);
 void	init_ray_calc(t_data *data);
-void	update_dir(t_player *data, float x, float y);
+void	update_dir(t_player *data, float x, float y, float a);
 void	update_plane(t_player *data, float x, float y);
 void	draw_pixel(t_data *data, int d, int x);
 int		*load_good_tex(t_data *data);

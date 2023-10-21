@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:15:29 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/18 15:00:26 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:02:44 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ int	init_mlx(t_data *data)
 		return (3);
 	data->player.y = -1;
 	data->player.x = -1;
-	data->player.a = 0;
+	data->player.a = 3.14/2;
 	return (0);
 }
