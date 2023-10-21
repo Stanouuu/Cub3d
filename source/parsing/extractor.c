@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:18:54 by stan              #+#    #+#             */
-/*   Updated: 2023/10/19 14:34:05 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/21 14:02:16 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	str_to_hex(char *str)
 	int		i;
 
 	i = 0;
-	if (!str || ft_isdigit(*str) == 0)
+	if (!str)
 		return (-1);
 	nbrs = ft_split(str, ',');
 	if (!nbrs)
