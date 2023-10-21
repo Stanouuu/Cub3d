@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:51:53 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/21 15:14:26 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/10/21 16:15:21 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	handle_cross(t_data *data)
 	return (0);
 }
 
+
+
 void	player_info_2(char direction, t_player *player)
 {
 	if (direction == 'S')
@@ -28,16 +30,18 @@ void	player_info_2(char direction, t_player *player)
 	}
 	else if (direction == 'N')
 	{
-		update_dir(player, -1, 0, 0);
+		update_dir(player, -1, 0, 3.14);
 		update_plane(player, 0, 0.66);
 	}
-	else if (direction == 'E' || direction == 'W')
+	else if (direction == 'E')
 	{
+		update_dir(player, 0, 1, 3.14 / 2);
 		update_plane(player, 0.66, 0);
-		if (direction == 'E')
-			update_dir(player, 0, 1, 3.14 / 2);
-		if (direction == 'W')
-			update_dir(player, 0, -1, 3.14 / 2);
+	}
+	else if (direction == 'W')
+	{
+		update_dir(player, 0, -1, -3.14 / 2);
+		update_plane(player, -0.66, 0);
 	}
 	else
 		player->y = -2;
