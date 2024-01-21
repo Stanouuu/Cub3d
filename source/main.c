@@ -6,7 +6,7 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:51:53 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/21 16:15:21 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/21 16:16:31 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	handle_cross(t_data *data)
 	data->win_ptr = NULL;
 	return (0);
 }
-
-
 
 void	player_info_2(char direction, t_player *player)
 {

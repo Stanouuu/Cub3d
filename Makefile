@@ -6,7 +6,7 @@
 #    By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/19 12:11:53 by sbarrage          #+#    #+#              #
-#    Updated: 2023/10/18 16:11:27 by sbarrage         ###   ########.fr        #
+#    Updated: 2023/10/21 16:48:16 by sbarrage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,3 +77,5 @@ fclean:	 mlxclean clean
 	rm -f ${NAME}
 
 re: clean fclean all mlxclean
+
+.PHONY: all clean fclean re mlxclean wf

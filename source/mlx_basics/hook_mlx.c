@@ -6,7 +6,7 @@
 /*   By: nklingsh <nklingsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 15:31:58 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/10/21 16:13:53 by nklingsh         ###   ########.fr       */
+/*   Updated: 2023/10/21 16:42:03 by nklingsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,20 @@ void	basic_mvmt(int keysym, t_data *data)
 	if (keysym == XK_w)
 	{
 		if (data->map->map[(int)(data->player.x
-				+ data->player.dirx * 0.5)][(int)data->player.y] == 0)
-			data->player.x = data->player.x + data->player.dirx * 0.1;
+				+ data->player.dirx * 0.1)][(int)data->player.y] == 0)
+			data->player.x = data->player.x + data->player.dirx * 0.1f;
 		if (data->map->map[(int)(data->player.x)][(int)(data->player.y
-				+ data->player.diry * 0.5)] == 0)
-			data->player.y = data->player.y + data->player.diry * 0.1;
+				+ data->player.diry * 0.1)] == 0)
+			data->player.y = data->player.y + data->player.diry * 0.1f;
 	}
 	if (keysym == XK_s)
 	{
 		if (data->map->map[(int)(data->player.x
-				- data->player.dirx)][(int)data->player.y] == 0)
-			data->player.x = data->player.x - data->player.dirx * 0.1;
+				- data->player.dirx * 0.1)][(int)data->player.y] == 0)
+			data->player.x = data->player.x - data->player.dirx * 0.1f;
 		if (data->map->map[(int)(data->player.x)][(int)(data->player.y
-				- data->player.diry)] == 0)
-			data->player.y = data->player.y - data->player.diry * 0.1;
+				- data->player.diry * 0.1)] == 0)
+			data->player.y = data->player.y - data->player.diry * 0.1f;
 	}
 }
 
