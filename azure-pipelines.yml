@@ -19,6 +19,7 @@ stages:
   displayName: 'make'
 
 - stage: Run
+  dependsOn: Build
   jobs:
     - job: RunJob
       steps:
