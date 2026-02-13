@@ -10,19 +10,12 @@ pool:
   name: default
 
 stages:
+
 - stage: Build
   jobs:
     - job: BuildJob
+      displayName: 'make'
       steps:
-        - script: |
-            make
-  displayName: 'make'
-
-- stage: Run
-  dependsOn: Build
-  jobs:
-    - job: RunJob
-      steps:
-        - script: |
-            ./cub3d
-  displayName: 'run'
+        - task: WhiteSource@21
+          inputs:
+            cwd: '$(System.DefaultWorkingDirectory)'
