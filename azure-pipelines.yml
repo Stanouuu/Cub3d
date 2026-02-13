@@ -1,0 +1,27 @@
+# C/C++ with GCC
+# Build your C/C++ project with GCC using make.
+# Add steps that publish test results, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/c-cpp/gcc
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: Build
+  jobs:
+    - job: BuildJob
+      steps:
+        - script: |
+            make
+  displayName: 'make'
+
+- stage: Run
+  jobs:
+    - job: RunJob
+      steps:
+        - script: |
+            ./cub3d
+  displayName: 'run'
